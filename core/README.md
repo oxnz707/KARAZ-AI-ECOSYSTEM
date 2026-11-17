@@ -1,0 +1,127 @@
+Core Operating Standards
+
+1. Purpose
+
+The Core layer defines the foundational operating standards and cross-domain capabilities used throughout KARAZ AI ECOSYSTEM.
+
+Its purpose is to establish consistent quality, safety, execution discipline, and interoperability without imposing a shared identity or personality on participating AI assistants.
+
+Core capabilities are reusable standards. They are not a replacement for specialist expertise.
+
+2. Architectural Position
+
+The Core layer supports the entire ecosystem:
+
+* Meta-Skills reference Core standards when coordinating domain capabilities.
+* Specialist Skills follow applicable Core requirements while retaining their specialized workflows.
+* Platform Adapters explain how Core standards can be applied within each platform’s actual capabilities.
+* The Registry records relevant capabilities, dependencies, and lifecycle states.
+
+3. Core Capability Areas
+
+The following capabilities define the planned Core scope:
+
+3.1 Quality Guardian
+
+Establishes standards for accuracy, evidence, completeness, verification, and deliverable quality.
+
+3.2 Cost Controller
+
+Promotes efficient use of tools, APIs, subscriptions, time, and other resources while protecting output quality.
+
+3.3 Privacy and Security
+
+Defines rules for sensitive information, credentials, external content, permissions, and safe handling of data.
+
+3.4 Task Understanding and Planning
+
+Establishes methods for interpreting requests, identifying constraints, defining outcomes, and planning execution.
+
+3.5 Tool and Permission Discipline
+
+Ensures that tools are selected appropriately, permissions are respected, and unsupported actions are never claimed.
+
+3.6 Fallback and Error Management
+
+Defines how to handle unavailable tools, failed operations, incomplete information, and alternative execution paths.
+
+3.7 Execution Tracking
+
+Distinguishes planned, attempted, completed, verified, and failed work.
+
+3.8 Capability Registry and Routing
+
+Defines how capabilities are discovered, selected, and handed off according to their documented responsibilities and actual availability.
+
+3.9 Conflict Resolution
+
+Provides a method for identifying and resolving conflicting instructions, overlapping responsibilities, and incompatible requirements.
+
+3.10 Regression and Consistency Testing
+
+Establishes methods for checking that changes do not silently break previously verified behavior.
+
+These capability areas are planned components. Their individual specifications and validation status must be maintained separately.
+
+4. Responsibility Boundaries
+
+Core standards must:
+
+* Define reusable operating requirements.
+* Avoid duplicating specialist domain knowledge.
+* Avoid embedding platform-specific assumptions into generic standards.
+* Avoid defining the identity, personality, or communication style of any AI assistant.
+* Avoid claiming capabilities that a platform or assistant does not actually support.
+
+Meta-Skills and Specialist Skills may extend Core standards with domain-specific requirements, provided they do not contradict mandatory security and quality rules.
+
+5. Instruction and Conflict Principles
+
+When requirements conflict:
+
+1. Applicable platform policies and safety requirements remain binding.
+2. Security and privacy requirements must not be bypassed.
+3. Explicit task constraints must be respected when compatible with higher-priority requirements.
+4. Specialized instructions govern their own domain within their documented scope.
+5. Unresolved conflicts must be disclosed rather than silently ignored.
+
+The repository provides standards and guidance; each AI platform remains responsible for applying them within its own instruction hierarchy and capabilities.
+
+6. Implementation Rules
+
+Every Core capability must have:
+
+* A unique identifier.
+* A clearly defined purpose.
+* Explicit scope and non-goals.
+* Inputs and expected outputs where applicable.
+* Dependencies and interaction boundaries.
+* Operational procedures.
+* Failure and fallback behavior where relevant.
+* Verification criteria.
+* Version and lifecycle status.
+
+7. Planned Structure
+
+The Core layer is expected to grow into independently documented components, for example:
+
+* quality-guardian/
+* cost-controller/
+* privacy-and-security/
+* task-planning/
+* tool-discipline/
+* fallback-manager/
+* execution-tracker/
+* capability-routing/
+* conflict-resolver/
+* regression-testing/
+
+These directories should be created only when their actual documentation and implementation are ready.
+
+8. Current Status
+
+The Core layer has entered its specification phase.
+
+No individual Core capability should be considered implemented, validated, or released merely because it appears in this document.
+
+Each capability will be developed and reviewed independently.
