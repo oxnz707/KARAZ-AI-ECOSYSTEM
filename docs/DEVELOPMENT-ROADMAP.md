@@ -1,0 +1,221 @@
+KARAZ AI ECOSYSTEM — Development Roadmap
+
+1. Purpose
+
+This roadmap defines the staged implementation plan for building KARAZ AI ECOSYSTEM into a modular, maintainable, portable, and verifiable capability library.
+
+The roadmap is intentionally incremental. Each phase should produce reviewable artifacts and pass its exit criteria before dependent work is treated as complete.
+
+2. Non-Negotiable Architecture Principles
+
+* The repository stores reusable capabilities, not AI identities.
+* Every AI assistant retains its own name, personality, communication style, platform configuration, tools, permissions, and policies.
+* No shared persona or common assistant identity is imposed by this repository.
+* Specialist skills remain independently documented and testable.
+* Platform adapters describe technical adoption only; they do not define assistant identity.
+* Public repository content must not contain credentials or private user information.
+* No capability is considered installed, activated, or validated without evidence.
+
+3. Implementation Phases
+
+Phase 0 — Foundation and Governance
+
+Goal: Establish the repository’s architecture, documentation standards, and governance rules.
+
+Planned deliverables:
+
+* Repository README and navigation.
+* Architecture specification.
+* Skill development standard.
+* Import and verification standard.
+* Development roadmap.
+* Skills registry.
+* Platform compatibility registry.
+* Changelog discipline.
+
+Exit criteria:
+
+* Required foundation documents exist and are internally consistent.
+* Registry files use valid, parseable YAML.
+* Identity independence and security principles are explicit.
+* No secrets or private user data are present in tracked files.
+
+Phase 1 — Core Operating Standards
+
+Goal: Define reusable cross-domain operating capabilities and contracts before building domain frameworks.
+
+Planned capability areas:
+
+* Quality assurance and evidence verification.
+* Cost and resource awareness.
+* Privacy and security.
+* Task understanding and planning.
+* Tool and permission discipline.
+* Error handling and fallback behavior.
+* Execution tracking and honest status reporting.
+* Capability discovery and routing contracts.
+
+Exit criteria:
+
+* Each core capability has a clear responsibility and boundary.
+* Overlapping responsibilities are reconciled.
+* Dependencies and handoff rules are documented.
+* Core standards can be referenced by meta-skills and specialist skills without copying contradictory instructions.
+
+Phase 2 — Meta-Skills Framework
+
+Goal: Organize related specialist capabilities into coherent domain-level frameworks.
+
+Candidate domains to assess:
+
+1. Freelancing and Income Growth.
+2. Customer Experience and Product Intelligence.
+3. Roblox Game Development.
+4. Browser Game Development.
+5. Data Analytics, BI, and AI Engineering.
+6. Academic, Learning, and Career Development.
+7. Presentation and Visual Communication.
+8. Productivity and AI Workflow Intelligence.
+9. Technology and Smart Shopping.
+10. Gaming, Video Editing, and Entertainment.
+11. Personal Finance and Crypto.
+12. Personal Growth and Relationships.
+
+These are planning candidates, not a declaration that every meta-skill is already implemented or approved.
+
+Exit criteria:
+
+* Each meta-skill has a documented purpose, scope, non-goals, and member-skill map.
+* Shared capabilities are referenced rather than redundantly copied.
+* Dependencies and routing behavior are explicit.
+* Domain boundaries and overlap are reviewed.
+
+Phase 3 — Specialist Skill Reconstruction
+
+Goal: Rebuild the existing skill inventory as independent, improved, testable specialist skills.
+
+Process for each skill:
+
+1. Identify and inspect the available original source material.
+2. Preserve the original skill’s useful responsibilities and distinctive workflows.
+3. Identify duplication, contradictions, missing safeguards, and outdated assumptions.
+4. Define scope, non-goals, inputs, outputs, dependencies, and platform requirements.
+5. Draft the improved skill using the repository standard.
+6. Add references, assets, and tests only where useful.
+7. Review the skill against quality and safety criteria.
+8. Run representative tests and record results.
+9. Register the skill with its actual status and version.
+10. Release only after validation requirements are met.
+
+Exit criteria:
+
+* Every migrated skill has traceable source context.
+* No useful capability is silently discarded.
+* Tests and known limitations are documented.
+* Registry status matches the evidence.
+
+Phase 4 — Platform Adapters and Adoption
+
+Goal: Make skills adoptable on supported AI platforms without assuming identical platform capabilities.
+
+Planned work:
+
+* Define a generic portable skill representation.
+* Assess platform-specific import and instruction mechanisms.
+* Document tool, file, context, and permission limitations.
+* Create adapters only where the platform’s actual mechanisms are understood.
+* Test adoption separately on each platform.
+
+Exit criteria:
+
+* Each adapter documents tested platform behavior and limitations.
+* Retrieval, understanding, registration, activation, and execution are reported separately.
+* No adapter claims unsupported functionality.
+
+Phase 5 — Testing and Quality Infrastructure
+
+Goal: Establish repeatable checks for repository integrity and skill behavior.
+
+Planned test categories:
+
+* Repository structure and required-file checks.
+* YAML parsing and registry consistency.
+* Skill metadata and documentation checks.
+* Broken references and missing dependencies.
+* Safety, privacy, and secret-detection checks.
+* Specialist skill scenario tests.
+* Regression tests for important behavior.
+* Platform interoperability checks where feasible.
+
+Exit criteria:
+
+* Test procedures and expected results are documented.
+* Failures are reported clearly.
+* Release status is blocked when mandatory checks fail.
+
+Phase 6 — Release and Maintenance
+
+Goal: Operate the ecosystem as a versioned, maintainable capability library.
+
+Planned work:
+
+* Semantic versioning.
+* Changelog updates.
+* Release review and approval.
+* Deprecation and retirement procedures.
+* Periodic compatibility reviews.
+* Dependency and security reviews.
+* Regression testing after meaningful changes.
+
+Exit criteria:
+
+* Every released skill has a version and documented status.
+* Changes are traceable.
+* Deprecated and retired capabilities are clearly marked.
+* Maintenance does not silently break dependent skills.
+
+4. Working Method
+
+Build incrementally and review each deliverable before moving to the next dependent stage.
+
+For each implementation unit:
+
+* Define the intended outcome.
+* Inspect relevant source material.
+* Draft the artifact.
+* Review for accuracy, completeness, consistency, and safety.
+* Validate structure and behavior.
+* Record the result and remaining limitations.
+
+Do not create empty directories or placeholder skills merely to make the repository look complete.
+
+5. Priority and Sequencing
+
+The intended order is:
+
+1. Complete and verify the foundation.
+2. Define core operating standards.
+3. Design the meta-skills framework.
+4. Reconstruct specialist skills in manageable batches.
+5. Build and test platform adapters.
+6. Expand automated and manual quality checks.
+7. Establish release and maintenance routines.
+
+Dependencies may justify adjusting the order, but changes should be documented.
+
+6. Scope Control
+
+* Do not merge distinct specialist responsibilities merely to reduce file count.
+* Do not create a new skill when an existing skill can be improved without harming its focus.
+* Do not assume all platforms can execute the same workflow.
+* Do not migrate a skill based only on its name; inspect its actual source instructions.
+* Do not mark work complete based solely on a draft or successful file upload.
+* Keep personal profile information and private working context outside the public repository unless explicitly reviewed and approved for publication.
+
+7. Current Status
+
+Current phase: Phase 0 — Foundation and Governance.
+
+Next planned phase: Phase 1 — Core Operating Standards.
+
+The roadmap is a living document. Update it when priorities, dependencies, or verified platform capabilities change.
