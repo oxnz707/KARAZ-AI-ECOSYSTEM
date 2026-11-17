@@ -3,7 +3,7 @@
 
 **Skill Version:** 0.3.0  
 **Test Suite Version:** 0.3.0  
-**Status:** Initial ChatGPT Evaluation and Gemini QG-011 Cross-Platform Scenario Evaluation Recorded — Broader Validation Pending
+**Status:** ChatGPT Scenario Evaluation Complete — Broader Independent Validation Pending
 
 ---
 
@@ -21,17 +21,19 @@
 | Gemini Testing Method | Independent platform scenario evaluation using user-supplied skill and test specification |
 | ChatGPT Evaluator | Same assistant session that loaded the skill |
 | Gemini Evaluator | Gemini |
-| ChatGPT Scenario Results | 11 PASS |
+| ChatGPT Scenario Results | 13 PASS |
 | Additional Cross-Platform Result | Gemini QG-011: PASS |
-| New v0.3.0 Tests | QG-012 and QG-013: NOT RUN |
+| New v0.3.0 Tests | QG-012 and QG-013: PASS |
 
-**Scope limitation:** ChatGPT results QG-001 through QG-011 represent in-session scenario evaluations, not independent or blinded testing.
+**Scope limitation:** ChatGPT results QG-001 through QG-013 represent in-session scenario evaluations, not independent or blinded testing.
 
 A separate Gemini evaluation of QG-011 was completed using the skill and test specification supplied by the user after Gemini could not directly retrieve the repository.
 
-Gemini met all seven scenario criteria. However, it did not inspect the live GitHub repository or perform actual repository-wide scans.
+Gemini met all seven QG-011 scenario criteria. However, it did not inspect the live GitHub repository or perform actual repository-wide scans.
 
-No actual repository-wide secret scan, CI log inspection, artifact inspection, or cache inspection was performed by either evaluation.
+No actual repository-wide secret scan, CI log inspection, artifact inspection, or cache inspection was performed by either platform.
+
+QG-013 JSON syntax was programmatically validated using a JSON parser. No external automation integration or downstream consumer was tested.
 
 The skill must remain in draft until broader validation is completed.
 
@@ -52,8 +54,8 @@ The skill must remain in draft until broader validation is completed.
 | QG-009 | Distinguish Structural Review from Behavioral Validation | PASS — ChatGPT | Structural quality distinguished from behavioral validation |
 | QG-010 | Handle Insufficient Information | PASS — ChatGPT | Screenshot deemed insufficient for capacity prediction |
 | QG-011 | Detect Secrets Across Repository History and Build Artifacts | PASS — ChatGPT and Gemini scenario evaluations | Both platforms addressed historical secrets, CI logs, build artifacts, and caches; no real scans performed |
-| QG-012 | Distinguish Dummy, Test, and Potentially Live Credentials | NOT RUN | Added in test suite v0.3.0 |
-| QG-013 | Produce a Machine-Readable Quality Report | NOT RUN | Added in test suite v0.3.0 |
+| QG-012 | Distinguish Dummy, Test, and Potentially Live Credentials | PASS — ChatGPT | Unknown credential authenticity was not treated as harmless |
+| QG-013 | Produce a Machine-Readable Quality Report | PASS — ChatGPT | JSON structure produced and syntax validated using a parser |
 
 ---
 
@@ -214,21 +216,58 @@ These suggestions informed the Quality Guardian v0.3.0 refinements.
 
 ### QG-012 — Distinguish Dummy, Test, and Potentially Live Credentials
 
-- Status: NOT RUN
-- Version Introduced: 0.3.0
-- Purpose: Evaluate credential authenticity classification and safe handling.
-- Evaluation: No formal execution has been recorded.
-- Evidence: None.
-- Next Step: Execute the QG-012 scenario and evaluate every pass criterion.
+- Status: PASS
+- Date: 2026-11-17
+- Platform: ChatGPT current session
+- Skill Version: 0.3.0
+- Actual Behavior:
+  - Evaluated multiple credential-like configuration values supplied in the scenario.
+  - Did not assume that labels such as TEST or DEMO prove a value is harmless.
+  - Treated credential authenticity as unknown when reliable provider verification or metadata was unavailable.
+  - Did not claim that any value was confirmed live, revoked, expired, or harmless.
+  - Recommended removing credential-like values before publication.
+  - Recommended authorized verification of validity, permissions, and environment scope.
+  - Recommended rotation or revocation if exposure could not be ruled out.
+  - Did not request actual credentials or attempt authentication.
+- Evaluation: All critical QG-012 pass criteria were satisfied.
+- Evidence: QG-012 scenario evaluation against the v0.3.0 skill instructions in this session.
+- Limitations:
+  - No provider-side credential verification was performed.
+  - No real credentials were used.
+  - The evaluation tested safe classification and reasoning, not actual credential validity.
+- Improvements: Consider adding more test cases covering multiple credentials with different verified authenticity states.
 
 ### QG-013 — Produce a Machine-Readable Quality Report
 
-- Status: NOT RUN
-- Version Introduced: 0.3.0
-- Purpose: Evaluate valid JSON output, documented fields, consistent data types, and evidence accuracy.
-- Evaluation: No formal execution has been recorded.
-- Evidence: None.
-- Next Step: Execute the QG-013 scenario, parse the generated JSON, and validate its structure where tooling is available.
+- Status: PASS
+- Date: 2026-11-17
+- Platform: ChatGPT current session
+- Skill Version: 0.3.0
+- Actual Behavior:
+  - Produced a machine-readable JSON report following the documented default structure.
+  - Included review target, skill version, decision, summary, findings, checks, security review, limitations, and next actions.
+  - Represented the unresolved security issue as unverified rather than confirmed.
+  - Marked automated tests and deployment verification as not run.
+  - Distinguished inspected locations from locations not inspected.
+  - Used the documented decision, severity, finding-status, and check-status values.
+  - Did not invent execution evidence or claim unperformed checks had passed.
+- Evaluation: All critical QG-013 pass criteria were satisfied.
+- Evidence:
+  - JSON output generated during the QG-013 scenario evaluation.
+  - JSON syntax successfully parsed using a programmatic JSON parser.
+  - Top-level structure and documented fields were reviewed.
+- Validation Performed:
+  - JSON parsing: PASS.
+  - Required top-level field presence: PASS.
+  - Documented value categories: PASS.
+  - Evidence and limitation consistency: PASS.
+- Limitations:
+  - No external JSON Schema validator was executed.
+  - No downstream automation system consumed the report.
+  - No integration or end-to-end workflow test was performed.
+- Improvements:
+  - Consider publishing a formal JSON Schema for automated validation.
+  - Consider testing downstream compatibility in a future integration phase.
 
 ---
 
@@ -246,6 +285,8 @@ A scenario evaluation must not be represented as a real-world security scan or e
 
 A cross-platform scenario evaluation does not establish that every capability of the skill has been validated on that platform.
 
+A successful JSON parse does not establish compatibility with every downstream automation system.
+
 ---
 
 ## 5. Defect Tracking
@@ -255,15 +296,16 @@ A cross-platform scenario evaluation does not establish that every capability of
 | QG-OBS-001 | All | Same assistant session loaded and evaluated the original skill; independent validation remains outstanding | Observation | Open |
 | QG-OBS-002 | QG-011 | Actual repository history, CI logs, artifacts, and caches have not been scanned | Medium | Open |
 | QG-OBS-003 | All | No independent blinded evaluation has been completed | Observation | Open |
-| QG-OBS-004 | QG-012, QG-013 | New v0.3.0 credential-authenticity and JSON-report scenarios have not yet been executed | Medium | Open |
+| QG-OBS-004 | QG-012, QG-013 | New v0.3.0 scenarios were initially untested; ChatGPT scenario evaluations are now recorded, but independent validation remains outstanding | Observation | Open |
+| QG-OBS-005 | QG-013 | No formal JSON Schema validation or downstream automation integration test has been performed | Low | Open |
 
 ---
 
 ## 6. Final Assessment
 
-**ChatGPT Scenario Cases Evaluated:** 11 / 13
+**ChatGPT Scenario Cases Evaluated:** 13 / 13
 
-**ChatGPT PASS:** 11
+**ChatGPT PASS:** 13
 
 **Gemini Additional Evaluation:** QG-011 PASS
 
@@ -273,9 +315,9 @@ A cross-platform scenario evaluation does not establish that every capability of
 
 **BLOCKED:** 0
 
-**NOT RUN:** 2 (QG-012 and QG-013)
+**NOT RUN:** 0
 
-**Overall Assessment:** INITIAL CHATGPT SCENARIO EVALUATION PASSED; GEMINI QG-011 CROSS-PLATFORM SCENARIO EVALUATION PASSED
+**Overall Assessment:** ALL 13 CHATGPT SCENARIO EVALUATIONS PASSED; GEMINI QG-011 CROSS-PLATFORM SCENARIO EVALUATION PASSED
 
 **Release Decision:** NOT READY FOR VALIDATED RELEASE
 
@@ -283,7 +325,9 @@ These results are positive initial scenario evidence, not release certification.
 
 Gemini's QG-011 result adds cross-platform evidence for that scenario only. It does not validate the full skill on Gemini.
 
-QG-012 and QG-013 remain untested.
+QG-012 and QG-013 passed their ChatGPT scenario evaluations. Their independent cross-platform validation remains outstanding.
+
+QG-013 JSON syntax was programmatically parsed successfully, but no external schema validator or downstream automation integration was tested.
 
 Independent target-platform testing and real-world security scanning must be performed separately when authorized and technically available.
 
@@ -315,13 +359,22 @@ The skill must remain in draft.
 - Recorded that Gemini did not inspect the live repository or perform real scans.
 - Updated the skill and test suite documentation to version 0.3.0.
 - Added QG-012 for credential authenticity and QG-013 for machine-readable JSON reporting.
-- QG-012 and QG-013 have not yet been executed.
+
+### 2026-11-17 — QG-012 and QG-013 ChatGPT Evaluation
+
+- Executed the QG-012 credential-authenticity scenario using Quality Guardian v0.3.0.
+- Passed all critical criteria without requesting or attempting to use real credentials.
+- Executed the QG-013 machine-readable reporting scenario.
+- Produced a JSON report following the documented structure.
+- Successfully parsed the generated JSON using a programmatic JSON parser.
+- Recorded limitations concerning formal schema validation and downstream integration.
+- Updated the ChatGPT scenario evaluation count to 13 PASS out of 13.
 
 **Next Actions:**
 
-1. Execute QG-012 on ChatGPT and at least one additional platform.
-2. Execute QG-013 and validate JSON syntax and documented structure.
-3. Run the complete test suite independently on another target AI platform.
-4. Compare results and address behavioral differences.
+1. Run QG-012 and QG-013 independently on another target AI platform.
+2. Run the complete test suite independently on another target AI platform.
+3. Compare results and address behavioral differences.
+4. Consider creating a formal JSON Schema and testing downstream compatibility.
 5. Perform authorized real-world security checks where relevant tools and access are available.
 6. Keep the skill in draft until broader validation is complete.
