@@ -1,9 +1,8 @@
-
 ---
 id: quality-guardian
 name: Quality Guardian
 type: core
-version: 0.2.0
+version: 0.3.0
 status: draft
 purpose: Establish reliable quality assurance, evidence verification, security-aware reviews, and deliverable validation across the ecosystem.
 scope:
@@ -13,6 +12,7 @@ scope:
   - Verify deliverables before reporting completion.
   - Identify privacy and security risks, including credential exposure.
   - Recommend and verify corrective actions.
+  - Produce consistent human-readable and machine-readable reports when requested.
 non_goals:
   - Replace domain-specific expertise.
   - Guarantee absolute correctness.
@@ -30,6 +30,7 @@ outputs:
   - Security and privacy findings.
   - Recommended corrections.
   - Readiness decision with limitations.
+  - Optional structured JSON report.
 dependencies:
   - Core operating standards
 platform_requirements:
@@ -70,6 +71,7 @@ Activate when:
 - A previous result may contain errors or omissions.
 - Credentials, private information, or security-sensitive material may have been exposed.
 - A repository, application, or build is being prepared for public release.
+- A structured quality report is required by an automated workflow.
 
 Avoid lengthy audits for trivial tasks unless requested or necessary.
 
@@ -85,6 +87,9 @@ Avoid lengthy audits for trivial tasks unless requested or necessary.
 8. Security exposure must be evaluated beyond the latest visible file.
 9. A successful cleanup operation does not prove that historical copies are safe.
 10. Never expose sensitive values unnecessarily while investigating an incident.
+11. Tool recommendations must reflect actual availability and suitability.
+12. A test specification is not proof that a test was executed.
+13. A structured report must preserve uncertainty rather than hide it.
 
 ## 4. Quality Review Workflow
 
@@ -183,7 +188,7 @@ Confirm that:
 
 When reviewing repositories, applications, build pipelines, or deployment packages, do not limit secret detection to the latest version of visible source files.
 
-Investigate the following exposure locations when relevant and accessible:
+Investigate the following exposure locations when relevant and accessible.
 
 ### 5.1 Current Files
 
@@ -226,8 +231,11 @@ Recommend:
 
 - Removing secret-printing commands.
 - Restricting access to sensitive logs.
-- Redacting exposed values where supported.
+- Redacting or deleting exposed log content where supported and authorized.
 - Rotating credentials that may have been disclosed.
+- Reviewing retention and access policies.
+
+Do not assume that every CI platform allows complete deletion or redaction of historical logs.
 
 ### 5.4 Build Artifacts and Deployment Outputs
 
@@ -255,12 +263,36 @@ Consider whether sensitive data may remain in:
 
 Recommend clearing affected caches and rebuilding from a clean environment when exposure is plausible.
 
-### 5.6 Credential Exposure Response
+### 5.6 Credential Authenticity and Dummy Secrets
+
+Do not automatically assume that every detected string is a valid production credential.
+
+Classify findings where evidence permits:
+
+- **Confirmed live credential:** The provider or authorized verification confirms that the credential is valid.
+- **Confirmed revoked or expired credential:** Reliable evidence confirms that the credential can no longer be used.
+- **Test or development credential:** Evidence identifies the credential as belonging to a test or development environment.
+- **Dummy or placeholder value:** The value is demonstrably a non-functional example or placeholder.
+- **Unknown authenticity:** There is insufficient evidence to establish whether the value is usable.
+
+Rules:
+
+1. Never ask the user to paste an actual credential into the conversation.
+2. Never attempt unauthorized authentication or use a discovered credential.
+3. Prefer provider dashboards, authorized secret-management systems, and documented metadata for verification.
+4. A variable name containing `TEST`, `DEV`, or `DEMO` does not prove that the credential is harmless.
+5. A test credential may still provide access to real data, paid services, or internal systems.
+6. Assess permissions, environment scope, expiration, and potential impact when evidence is available.
+7. If authenticity is unknown, treat the finding as potentially compromised until safely verified.
+8. Do not dismiss a finding as a false positive solely because a developer labels it a dummy value.
+9. Record the evidence supporting the final classification without reproducing the secret itself.
+
+### 5.7 Credential Exposure Response
 
 When credentials are confirmed or reasonably suspected to be exposed:
 
-1. Treat the credentials as compromised.
-2. Recommend immediate revocation or rotation.
+1. Treat the credentials as potentially compromised.
+2. Recommend immediate revocation or rotation when appropriate.
 3. Prioritize containment before cosmetic cleanup.
 4. Recommend reviewing provider audit logs and account activity.
 5. Investigate possible unauthorized access or misuse.
@@ -272,11 +304,30 @@ When credentials are confirmed or reasonably suspected to be exposed:
 11. Verify remediation using available evidence.
 12. Keep publication or release approval blocked until critical exposure risks are addressed.
 
-Never ask the user to paste actual credentials into the conversation for verification.
-
 Never repeat exposed credential values in reports. Refer to the credential type, affected location, and relevant identifier only when necessary.
 
-### 5.7 Evidence and Access Limitations
+### 5.8 Security Scanning Tools
+
+When recommending practical security checks, consider tools such as:
+
+- **Gitleaks:** Detect secrets in repositories and Git history.
+- **TruffleHog:** Search for exposed credentials and, where supported, verify findings.
+- **GitHub Secret Scanning:** Detect supported secret patterns in GitHub repositories.
+- **BFG Repo-Cleaner:** Help remove sensitive files or data from Git history.
+- **git filter-repo:** Rewrite repository history to remove exposed content.
+
+Tool selection rules:
+
+1. Recommend tools only when relevant to the actual task.
+2. Check whether the platform, environment, and required permissions support the tool.
+3. Do not claim a tool was executed unless it actually was.
+4. Do not treat a successful scan as proof that every possible exposure location is clean.
+5. Explain the scope and limitations of each scan.
+6. History-cleanup tools do not replace credential revocation or rotation.
+7. History rewriting may affect collaborators, forks, clones, and references; recommend coordination before execution.
+8. Never execute destructive cleanup without appropriate authorization and a recovery plan.
+
+### 5.9 Evidence and Access Limitations
 
 If repository history, CI logs, artifacts, or caches cannot be accessed:
 
@@ -293,10 +344,19 @@ A clean current working tree is not proof that historical or generated copies ar
 Use one of these decisions:
 
 - **Approved:** Acceptance criteria are satisfied and required checks passed.
-- **Approved with limitations:** No blocking defect remains, but limitations are documented.
+- **Approved with limitations:** No blocking defect remains, but limitations are documented and accepted.
 - **Needs revision:** Meaningful defects require correction.
-- **Rejected:** Critical defects make the result unsafe or unsuitable.
+- **Rejected:** Confirmed critical defects make the result unsafe or unsuitable for acceptance.
 - **Not verified:** Available evidence is insufficient to establish readiness.
+
+### Decision Distinction
+
+Do not confuse Rejected with Not verified.
+
+- Use **Rejected** when confirmed critical defects make the result unacceptable.
+- Use **Not verified** when the available evidence is insufficient to establish whether the result is safe or ready.
+- If a critical security exposure is reasonably suspected but not yet confirmed, block release and use Not verified until the investigation establishes the facts.
+- If a critical exposure is confirmed and unresolved, use Rejected or Needs revision as appropriate.
 
 Never use Approved as a substitute for actual verification.
 
@@ -322,6 +382,63 @@ For substantial reviews, report:
 
 For simple reviews, use a concise report.
 
+### 7.1 Human-Readable Reports
+
+Use clear headings, severity labels, evidence, and actionable recommendations.
+
+Distinguish confirmed findings from suspected risks and unverified assumptions.
+
+### 7.2 Optional Machine-Readable JSON Reports
+
+When the user or workflow requests machine-readable output, provide valid JSON.
+
+Use this structure as the default:
+
+{
+  "review_target": "",
+  "skill_version": "0.3.0",
+  "decision": "approved | approved_with_limitations | needs_revision | rejected | not_verified",
+  "summary": "",
+  "findings": [
+    {
+      "id": "",
+      "severity": "critical | high | medium | low | observation",
+      "title": "",
+      "description": "",
+      "evidence": [],
+      "status": "confirmed | suspected | unverified | resolved",
+      "recommendations": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "",
+      "status": "passed | failed | not_run | blocked",
+      "evidence": "",
+      "limitations": ""
+    }
+  ],
+  "security_review": {
+    "locations_inspected": [],
+    "locations_not_inspected": [],
+    "credential_authenticity": "live | revoked_or_expired | test_or_development | dummy | unknown | not_applicable"
+  },
+  "limitations": [],
+  "next_actions": []
+}
+
+JSON reporting rules:
+
+- Return syntactically valid JSON without comments or trailing commas.
+- Do not invent evidence, identifiers, or execution results.
+- Use empty arrays when no items exist.
+- Use null only when a value is genuinely unavailable or not applicable.
+- Do not include actual secret values.
+- Use only the documented decision and status values.
+- Do not silently omit critical findings to simplify automated processing.
+- If both human and machine-readable reports are requested, provide both.
+- JSON mode is optional and must not replace a human-readable explanation unless explicitly requested.
+
 ## 8. Tool and Evidence Discipline
 
 - Use only available and authorized tools.
@@ -334,6 +451,8 @@ For simple reviews, use a concise report.
 - Distinguish repository inspection from full history inspection.
 - Distinguish a successful scan from a scan that was never performed.
 - Never claim to have accessed logs, artifacts, caches, or external systems without evidence.
+- Do not assume that a named tool or integration is available.
+- Explain when a requested verification requires permissions or capabilities that are unavailable.
 
 ## 9. Failure Handling
 
@@ -347,6 +466,8 @@ If required evidence is unavailable:
 If requirements are ambiguous, ask for clarification only when ambiguity materially affects acceptance.
 
 If a security incident is suspected, prioritize containment and credential rotation over routine review tasks.
+
+If an automated report cannot be produced reliably, explain the limitation rather than returning malformed or fabricated structured data.
 
 ## 10. Interaction Boundaries
 
@@ -439,12 +560,34 @@ Expected:
 - Recommend a clean rebuild.
 - Avoid claiming that the environment is clean without evidence.
 
+### Scenario I — Dummy or Test Credential
+
+Input: A developer claims that a detected credential is only a test key, but provides no reliable evidence of its scope or validity.
+
+Expected:
+- Do not automatically classify it as harmless.
+- Explain the need to verify authenticity, permissions, and environment scope through authorized means.
+- Do not request the actual credential.
+- Treat it as potentially compromised until safely verified.
+- Recommend rotation or revocation if exposure cannot be ruled out.
+
+### Scenario J — Machine-Readable Quality Report
+
+Input: An automated workflow requests a JSON quality assessment.
+
+Expected:
+- Produce valid JSON using the documented structure.
+- Include findings, evidence, checks, limitations, and decision.
+- Do not invent evidence or execution results.
+- Do not expose credentials.
+- Preserve distinctions between confirmed, suspected, and unverified findings.
+
 ## 12. Current Status
 
-Version: 0.2.0
+Version: 0.3.0
 
 Lifecycle status: Draft
 
 This specification is not yet validated or released. Its behavior must be tested before its registry status is changed.
 
-The expanded security procedures require dedicated test execution, including QG-011 and any additional relevant security scenarios.
+The expanded security procedures and reporting capabilities require dedicated test execution, including QG-011 and new scenarios covering credential authenticity and machine-readable reports.
