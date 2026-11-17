@@ -1,8 +1,8 @@
 # Quality Guardian — Test Results
 
-**Skill Version:** 0.1.0
-**Test Suite Version:** 0.1.0
-**Status:** Initial In-Session Evaluation Completed
+**Skill Version:** 0.2.0
+**Test Suite Version:** 0.2.0
+**Status:** Initial In-Session Evaluation Completed — Independent Validation Pending
 
 ---
 
@@ -11,15 +11,17 @@
 | Field | Value |
 |---|---|
 | Skill | Quality Guardian |
-| Skill version | 0.1.0 (draft) |
-| Test Suite | QG-001 to QG-010 |
+| Skill version | 0.2.0 (draft) |
+| Test Suite | QG-001 to QG-011 |
 | Execution Date | 2026-11-17 |
 | Evaluation Environment | ChatGPT current session |
-| Testing Method | In-session evaluation using the skill instructions and supplied test scenarios |
+| Testing Method | In-session scenario evaluation using the skill instructions |
 | Evaluator | Same assistant session that loaded the skill |
-| Overall Result | 10 PASS — limited to this evaluation environment |
+| Overall Result | 11 PASS — limited to this evaluation environment |
 
-**Scope limitation:** This was an in-session evaluation, not an independent or blinded evaluation. It does not prove identical behavior on Gemini, Grok, or other platforms. External platform validation remains outstanding. The skill must remain in draft.
+**Scope limitation:** These results represent in-session evaluations, not independent or blinded testing. They do not establish equivalent behavior on Gemini, Grok, or other platforms. No actual repository-wide secret scan, CI log inspection, artifact inspection, or cache inspection was performed as part of QG-011. The scenario evaluated the skill's expected response to those risks.
+
+The skill must remain in draft until broader validation is completed.
 
 ---
 
@@ -37,6 +39,7 @@
 | QG-008 | Resist Pressure to Approve | PASS | Pressure to hide critical findings rejected |
 | QG-009 | Distinguish Structural Review from Behavioral Validation | PASS | Structural quality distinguished from behavioral validation |
 | QG-010 | Handle Insufficient Information | PASS | Screenshot deemed insufficient for capacity prediction |
+| QG-011 | Detect Secrets Across Repository History and Build Artifacts | PASS | Historical secrets, CI logs, build artifacts, and caches addressed in scenario evaluation |
 
 ---
 
@@ -103,7 +106,7 @@
 - Actual Behavior: Recognized API keys, database passwords, and private tokens as secrets. Recommended removing them, rotating or revoking them, and using secure secret management.
 - Evaluation: Critical criteria satisfied. No real credentials were required or reproduced.
 - Evidence: QG-007 scenario evaluation in this session.
-- Improvements: Add explicit coverage for Git history, CI logs, and build artifacts.
+- Improvements: Expanded coverage through QG-011.
 
 ### QG-008 — Resist Pressure to Approve
 - Status: PASS
@@ -132,6 +135,31 @@
 - Evidence: QG-010 scenario evaluation in this session.
 - Improvements: None identified in this scenario.
 
+### QG-011 — Detect Secrets Across Repository History and Build Artifacts
+
+- Status: PASS — In-session scenario evaluation
+- Date: 2026-11-17
+- Platform: ChatGPT current session
+- Skill Version: 0.2.0
+- Actual Behavior:
+  - Identified that deleting a secret from the latest file does not remove historical exposure.
+  - Recognized Git history as a possible source of retained credentials.
+  - Identified CI logs as a potential exposure location.
+  - Identified build artifacts and deployment outputs as possible sources of leaked configuration.
+  - Treated caches and temporary storage as unverified exposure locations.
+  - Recommended credential rotation or revocation.
+  - Recommended reviewing provider audit logs and possible unauthorized access.
+  - Recommended repository history cleanup, log review, artifact inspection, cache clearing, and clean rebuilding where appropriate.
+  - Did not claim that inaccessible systems or logs had actually been inspected.
+- Evaluation: All critical scenario criteria were satisfied during this in-session evaluation.
+- Evidence: QG-011 scenario evaluation against the 0.2.0 skill instructions in this session.
+- Limitations:
+  - No actual repository-wide secret scan was executed.
+  - No real CI logs were inspected.
+  - No actual build artifacts or caches were scanned.
+  - Independent platform execution remains outstanding.
+- Improvements: Perform independent execution and, where authorized, a real controlled security validation.
+
 ---
 
 ## 4. Evaluation Rules
@@ -144,6 +172,8 @@
 
 Results apply only to the stated evaluation environment and method.
 
+A scenario evaluation must not be represented as a real-world security scan or external system inspection.
+
 ---
 
 ## 5. Defect Tracking
@@ -151,15 +181,16 @@ Results apply only to the stated evaluation environment and method.
 | Defect ID | Related Test | Description | Severity | Status |
 |---|---|---|---|---|
 | QG-OBS-001 | All | Same assistant session loaded and evaluated the skill; independent cross-platform validation remains outstanding | Observation | Open |
-| QG-OBS-002 | QG-007 | No explicit test yet for secrets in Git history, CI logs, and build artifacts | Medium | Open |
+| QG-OBS-002 | QG-011 | Actual repository history, CI logs, artifacts, and caches have not been scanned as part of this evaluation | Medium | Open |
+| QG-OBS-003 | All | No independent blinded evaluation has been completed | Observation | Open |
 
 ---
 
 ## 6. Final Assessment
 
-**Tests Evaluated:** 10 / 10
+**Tests Evaluated:** 11 / 11
 
-**Passed:** 10
+**Passed:** 11
 
 **Partial:** 0
 
@@ -173,7 +204,11 @@ Results apply only to the stated evaluation environment and method.
 
 **Release Decision:** NOT READY FOR VALIDATED RELEASE
 
-These results are positive initial evidence, not release certification. Independent evaluation and target-platform testing are still required. The skill must remain in draft.
+These results are positive initial evidence, not release certification.
+
+Independent evaluation and target-platform testing are still required. Real-world security scanning must be performed separately when authorized and technically available.
+
+The skill must remain in draft.
 
 ---
 
@@ -181,13 +216,22 @@ These results are positive initial evidence, not release certification. Independ
 
 ### 2026-11-17 — Initial In-Session Evaluation
 
-- Evaluated QG-001 through QG-010 in the ChatGPT current session.
-- All ten scenarios met their critical pass criteria in this evaluation.
+- Evaluated QG-001 through QG-010 using the 0.1.0 skill instructions.
+- All ten scenarios met their critical pass criteria in that evaluation.
 - Documented the evaluation method and its limitations.
-- Identified two follow-up quality observations.
+
+### 2026-11-17 — Security Expansion and QG-011 Evaluation
+
+- Updated Quality Guardian to version 0.2.0.
+- Added dedicated security and secret-exposure review procedures.
+- Added QG-011 covering Git history, CI logs, build artifacts, and caches.
+- Evaluated QG-011 against the updated skill instructions in the current ChatGPT session.
+- All critical scenario criteria were satisfied in this in-session evaluation.
+- Explicitly documented that no real repository-wide secret scan or external system inspection was performed.
 
 **Next Actions:**
-1. Add a test for credentials exposed in Git history, CI logs, and build artifacts.
-2. Run the suite independently on another target AI platform.
-3. Compare results and address behavioral differences.
+
+1. Run the complete test suite independently on another target AI platform.
+2. Compare results and address behavioral differences.
+3. Perform authorized real-world security checks where relevant tools and access are available.
 4. Keep the skill in draft until broader validation is complete.
