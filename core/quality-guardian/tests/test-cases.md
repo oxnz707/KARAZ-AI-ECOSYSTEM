@@ -1,7 +1,7 @@
 
 # Quality Guardian — Test Cases
 
-**Version:** 0.2.0  
+**Version:** 0.3.0
 **Status:** Expanded Test Specification  
 **Purpose:** Evaluate the Quality Guardian skill's ability to identify weaknesses, verify evidence, assess risks, protect sensitive information, and provide actionable quality recommendations.
 
