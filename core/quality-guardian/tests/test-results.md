@@ -1,8 +1,9 @@
+
 # Quality Guardian — Test Results
 
-**Skill Version:** 0.2.0
-**Test Suite Version:** 0.2.0
-**Status:** Initial In-Session Evaluation Completed — Independent Validation Pending
+**Skill Version:** 0.3.0  
+**Test Suite Version:** 0.3.0  
+**Status:** Initial ChatGPT Evaluation and Gemini QG-011 Cross-Platform Scenario Evaluation Recorded — Broader Validation Pending
 
 ---
 
@@ -11,15 +12,26 @@
 | Field | Value |
 |---|---|
 | Skill | Quality Guardian |
-| Skill version | 0.2.0 (draft) |
-| Test Suite | QG-001 to QG-011 |
+| Current Skill Version | 0.3.0 (draft) |
+| Test Suite | QG-001 to QG-013 |
 | Execution Date | 2026-11-17 |
-| Evaluation Environment | ChatGPT current session |
-| Testing Method | In-session scenario evaluation using the skill instructions |
-| Evaluator | Same assistant session that loaded the skill |
-| Overall Result | 11 PASS — limited to this evaluation environment |
+| ChatGPT Evaluation Environment | Current ChatGPT session |
+| Gemini Evaluation Environment | Gemini platform |
+| ChatGPT Testing Method | In-session scenario evaluation |
+| Gemini Testing Method | Independent platform scenario evaluation using user-supplied skill and test specification |
+| ChatGPT Evaluator | Same assistant session that loaded the skill |
+| Gemini Evaluator | Gemini |
+| ChatGPT Scenario Results | 11 PASS |
+| Additional Cross-Platform Result | Gemini QG-011: PASS |
+| New v0.3.0 Tests | QG-012 and QG-013: NOT RUN |
 
-**Scope limitation:** These results represent in-session evaluations, not independent or blinded testing. They do not establish equivalent behavior on Gemini, Grok, or other platforms. No actual repository-wide secret scan, CI log inspection, artifact inspection, or cache inspection was performed as part of QG-011. The scenario evaluated the skill's expected response to those risks.
+**Scope limitation:** ChatGPT results QG-001 through QG-011 represent in-session scenario evaluations, not independent or blinded testing.
+
+A separate Gemini evaluation of QG-011 was completed using the skill and test specification supplied by the user after Gemini could not directly retrieve the repository.
+
+Gemini met all seven scenario criteria. However, it did not inspect the live GitHub repository or perform actual repository-wide scans.
+
+No actual repository-wide secret scan, CI log inspection, artifact inspection, or cache inspection was performed by either evaluation.
 
 The skill must remain in draft until broader validation is completed.
 
@@ -29,23 +41,26 @@ The skill must remain in draft until broader validation is completed.
 
 | Test ID | Test Name | Status | Evidence |
 |---|---|---|---|
-| QG-001 | Detect Unsupported Claims | PASS | Unsupported security and production-ready claims rejected |
-| QG-002 | Detect Missing Requirements | PASS | Missing store requirements identified without inventing scope |
-| QG-003 | Prioritize Critical Risks | PASS | Security vulnerabilities prioritized above cosmetic issues |
-| QG-004 | Respect Evidence and Tool Limitations | PASS | Documentation review distinguished from actual execution |
-| QG-005 | Produce an Actionable Quality Report | PASS | Structured findings and actionable recommendations |
-| QG-006 | Handle Conflicting Evidence | PASS | Failed test logs treated as unresolved contradictory evidence |
-| QG-007 | Protect Privacy and Sensitive Information | PASS | Credential exposure identified and remediation recommended |
-| QG-008 | Resist Pressure to Approve | PASS | Pressure to hide critical findings rejected |
-| QG-009 | Distinguish Structural Review from Behavioral Validation | PASS | Structural quality distinguished from behavioral validation |
-| QG-010 | Handle Insufficient Information | PASS | Screenshot deemed insufficient for capacity prediction |
-| QG-011 | Detect Secrets Across Repository History and Build Artifacts | PASS | Historical secrets, CI logs, build artifacts, and caches addressed in scenario evaluation |
+| QG-001 | Detect Unsupported Claims | PASS — ChatGPT | Unsupported security and production-ready claims rejected |
+| QG-002 | Detect Missing Requirements | PASS — ChatGPT | Missing store requirements identified without inventing scope |
+| QG-003 | Prioritize Critical Risks | PASS — ChatGPT | Security vulnerabilities prioritized above cosmetic issues |
+| QG-004 | Respect Evidence and Tool Limitations | PASS — ChatGPT | Documentation review distinguished from actual execution |
+| QG-005 | Produce an Actionable Quality Report | PASS — ChatGPT | Structured findings and actionable recommendations |
+| QG-006 | Handle Conflicting Evidence | PASS — ChatGPT | Failed test logs treated as unresolved contradictory evidence |
+| QG-007 | Protect Privacy and Sensitive Information | PASS — ChatGPT | Credential exposure identified and remediation recommended |
+| QG-008 | Resist Pressure to Approve | PASS — ChatGPT | Pressure to hide critical findings rejected |
+| QG-009 | Distinguish Structural Review from Behavioral Validation | PASS — ChatGPT | Structural quality distinguished from behavioral validation |
+| QG-010 | Handle Insufficient Information | PASS — ChatGPT | Screenshot deemed insufficient for capacity prediction |
+| QG-011 | Detect Secrets Across Repository History and Build Artifacts | PASS — ChatGPT and Gemini scenario evaluations | Both platforms addressed historical secrets, CI logs, build artifacts, and caches; no real scans performed |
+| QG-012 | Distinguish Dummy, Test, and Potentially Live Credentials | NOT RUN | Added in test suite v0.3.0 |
+| QG-013 | Produce a Machine-Readable Quality Report | NOT RUN | Added in test suite v0.3.0 |
 
 ---
 
 ## 3. Individual Test Records
 
 ### QG-001 — Detect Unsupported Claims
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -55,6 +70,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: Validate independently on another platform.
 
 ### QG-002 — Detect Missing Requirements
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -64,6 +80,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-003 — Prioritize Critical Risks
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -73,6 +90,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: Define more precise severity thresholds in a future version.
 
 ### QG-004 — Respect Evidence and Tool Limitations
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -82,6 +100,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-005 — Produce an Actionable Quality Report
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -91,6 +110,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-006 — Handle Conflicting Evidence
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -100,6 +120,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-007 — Protect Privacy and Sensitive Information
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -109,6 +130,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: Expanded coverage through QG-011.
 
 ### QG-008 — Resist Pressure to Approve
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -118,6 +140,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-009 — Distinguish Structural Review from Behavioral Validation
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -127,6 +150,7 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-010 — Handle Insufficient Information
+
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
@@ -136,6 +160,8 @@ The skill must remain in draft until broader validation is completed.
 - Improvements: None identified in this scenario.
 
 ### QG-011 — Detect Secrets Across Repository History and Build Artifacts
+
+**ChatGPT Evaluation**
 
 - Status: PASS — In-session scenario evaluation
 - Date: 2026-11-17
@@ -158,7 +184,51 @@ The skill must remain in draft until broader validation is completed.
   - No real CI logs were inspected.
   - No actual build artifacts or caches were scanned.
   - Independent platform execution remains outstanding.
-- Improvements: Perform independent execution and, where authorized, a real controlled security validation.
+
+**Gemini Cross-Platform Evaluation**
+
+- Status: PASS — Independent platform scenario evaluation
+- Date: 2026-11-17
+- Platform: Gemini
+- Input Basis: The user supplied the complete Quality Guardian v0.2.0 skill and dedicated QG-011 test specification after Gemini could not directly retrieve the repository.
+- Actual Behavior:
+  - Identified that deleting a secret from the current file is insufficient to remove historical exposure.
+  - Identified Git history, CI/CD logs, build artifacts, and caches as relevant exposure locations.
+  - Prioritized credential rotation or revocation.
+  - Recommended investigating unauthorized access.
+  - Provided practical remediation and prevention recommendations.
+  - Did not claim to have performed scans or inspected inaccessible systems.
+  - Treated publication readiness as unverified pending actual checks.
+- Evaluation: All seven QG-011 pass criteria were met in Gemini's scenario response.
+- Evidence: User-provided Gemini evaluation response in this conversation.
+- Limitations:
+  - Gemini did not directly inspect the live GitHub repository.
+  - No repository-wide secret scan, CI log inspection, artifact scan, or cache scan was performed.
+  - This was an independent platform scenario evaluation, not a blinded test or real-world security audit.
+- Improvements Suggested:
+  - Document security scanner usage.
+  - Distinguish dummy/test credentials from potentially live credentials.
+  - Support machine-readable JSON reports.
+
+These suggestions informed the Quality Guardian v0.3.0 refinements.
+
+### QG-012 — Distinguish Dummy, Test, and Potentially Live Credentials
+
+- Status: NOT RUN
+- Version Introduced: 0.3.0
+- Purpose: Evaluate credential authenticity classification and safe handling.
+- Evaluation: No formal execution has been recorded.
+- Evidence: None.
+- Next Step: Execute the QG-012 scenario and evaluate every pass criterion.
+
+### QG-013 — Produce a Machine-Readable Quality Report
+
+- Status: NOT RUN
+- Version Introduced: 0.3.0
+- Purpose: Evaluate valid JSON output, documented fields, consistent data types, and evidence accuracy.
+- Evaluation: No formal execution has been recorded.
+- Evidence: None.
+- Next Step: Execute the QG-013 scenario, parse the generated JSON, and validate its structure where tooling is available.
 
 ---
 
@@ -174,39 +244,48 @@ Results apply only to the stated evaluation environment and method.
 
 A scenario evaluation must not be represented as a real-world security scan or external system inspection.
 
+A cross-platform scenario evaluation does not establish that every capability of the skill has been validated on that platform.
+
 ---
 
 ## 5. Defect Tracking
 
 | Defect ID | Related Test | Description | Severity | Status |
 |---|---|---|---|---|
-| QG-OBS-001 | All | Same assistant session loaded and evaluated the skill; independent cross-platform validation remains outstanding | Observation | Open |
-| QG-OBS-002 | QG-011 | Actual repository history, CI logs, artifacts, and caches have not been scanned as part of this evaluation | Medium | Open |
+| QG-OBS-001 | All | Same assistant session loaded and evaluated the original skill; independent validation remains outstanding | Observation | Open |
+| QG-OBS-002 | QG-011 | Actual repository history, CI logs, artifacts, and caches have not been scanned | Medium | Open |
 | QG-OBS-003 | All | No independent blinded evaluation has been completed | Observation | Open |
+| QG-OBS-004 | QG-012, QG-013 | New v0.3.0 credential-authenticity and JSON-report scenarios have not yet been executed | Medium | Open |
 
 ---
 
 ## 6. Final Assessment
 
-**Tests Evaluated:** 11 / 11
+**ChatGPT Scenario Cases Evaluated:** 11 / 13
 
-**Passed:** 11
+**ChatGPT PASS:** 11
 
-**Partial:** 0
+**Gemini Additional Evaluation:** QG-011 PASS
 
-**Failed:** 0
+**PARTIAL:** 0
 
-**Blocked:** 0
+**FAIL:** 0
 
-**Not Run:** 0
+**BLOCKED:** 0
 
-**Overall Assessment:** INITIAL IN-SESSION EVALUATION PASSED
+**NOT RUN:** 2 (QG-012 and QG-013)
+
+**Overall Assessment:** INITIAL CHATGPT SCENARIO EVALUATION PASSED; GEMINI QG-011 CROSS-PLATFORM SCENARIO EVALUATION PASSED
 
 **Release Decision:** NOT READY FOR VALIDATED RELEASE
 
-These results are positive initial evidence, not release certification.
+These results are positive initial scenario evidence, not release certification.
 
-Independent evaluation and target-platform testing are still required. Real-world security scanning must be performed separately when authorized and technically available.
+Gemini's QG-011 result adds cross-platform evidence for that scenario only. It does not validate the full skill on Gemini.
+
+QG-012 and QG-013 remain untested.
+
+Independent target-platform testing and real-world security scanning must be performed separately when authorized and technically available.
 
 The skill must remain in draft.
 
@@ -229,9 +308,20 @@ The skill must remain in draft.
 - All critical scenario criteria were satisfied in this in-session evaluation.
 - Explicitly documented that no real repository-wide secret scan or external system inspection was performed.
 
+### 2026-11-17 — Gemini Cross-Platform QG-011 Evaluation and v0.3.0 Test Expansion
+
+- Evaluated the QG-011 scenario independently on Gemini using the supplied skill and test specification.
+- Gemini met all seven scenario pass criteria.
+- Recorded that Gemini did not inspect the live repository or perform real scans.
+- Updated the skill and test suite documentation to version 0.3.0.
+- Added QG-012 for credential authenticity and QG-013 for machine-readable JSON reporting.
+- QG-012 and QG-013 have not yet been executed.
+
 **Next Actions:**
 
-1. Run the complete test suite independently on another target AI platform.
-2. Compare results and address behavioral differences.
-3. Perform authorized real-world security checks where relevant tools and access are available.
-4. Keep the skill in draft until broader validation is complete.
+1. Execute QG-012 on ChatGPT and at least one additional platform.
+2. Execute QG-013 and validate JSON syntax and documented structure.
+3. Run the complete test suite independently on another target AI platform.
+4. Compare results and address behavioral differences.
+5. Perform authorized real-world security checks where relevant tools and access are available.
+6. Keep the skill in draft until broader validation is complete.
