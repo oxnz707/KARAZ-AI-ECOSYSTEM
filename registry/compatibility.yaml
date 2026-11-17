@@ -1,0 +1,39 @@
+schema_version: “1.0”
+
+platforms:
+generic:
+status: “planned”
+description: “Platform-independent skill format.”
+
+chatgpt:
+status: “planned”
+adapter: “adapters/chatgpt/”
+notes: “Adoption depends on available ChatGPT features and permissions.”
+
+gemini:
+status: “planned”
+adapter: “adapters/gemini/”
+notes: “Adoption depends on available Gemini features and permissions.”
+
+grok:
+status: “future”
+adapter: “adapters/grok/”
+notes: “Reserved for future integration.”
+
+compatibility_levels:
+
+* compatible
+* compatible_with_adaptation
+* partially_supported
+* unsupported
+* unverified
+
+rules:
+
+* “Never assume platform compatibility without verification.”
+* “Never assume a skill is installed merely because it was retrieved.”
+* “Preserve each AI assistant’s independent identity and personality.”
+* “Document platform-specific limitations.”
+* “Verify required tools and permissions before execution.”
+
+skills: []
