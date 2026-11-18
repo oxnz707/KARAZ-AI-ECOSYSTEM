@@ -1,12 +1,12 @@
-KARAZ AI ECOSYSTEM — Architecture
+# KARAZ AI ECOSYSTEM — Architecture
 
-1. Purpose
+## 1. Purpose
 
 KARAZ AI ECOSYSTEM is a modular, platform-independent repository of reusable AI skills, meta-skills, operational standards, knowledge resources, templates, and validation systems.
 
 Its purpose is to provide AI assistants with structured capabilities they can adopt and use according to their individual platform capabilities.
 
-2. Fundamental Principle: Identity Independence
+## 2. Fundamental Principle: Identity Independence
 
 Every AI assistant retains its own independent:
 
@@ -22,7 +22,7 @@ The repository contains capabilities, not assistant identities.
 
 An assistant may adopt compatible capabilities without changing who it is.
 
-3. Design Principles
+## 3. Design Principles
 
 1. Modular: Every skill has a clear responsibility.
 2. Extensible: New skills can be added without redesigning the ecosystem.
@@ -33,9 +33,9 @@ An assistant may adopt compatible capabilities without changing who it is.
 7. Cost-aware: Prefer efficient and economical execution when quality is comparable.
 8. Platform-aware: Never assume that every AI platform supports identical tools or workflows.
 
-4. Ecosystem Layers
+## 4. Ecosystem Layers
 
-4.1 Core Standards
+### 4.1 Core Standards
 
 Shared operational standards governing:
 
@@ -49,38 +49,46 @@ Shared operational standards governing:
 
 These standards do not define an assistant’s personality.
 
-4.2 Meta-Skills
+### 4.2 Meta-Skills
 
 Higher-level capability frameworks that organize related specialist skills.
 
 Meta-skills provide coordination, workflows, and domain-level guidance.
 
-4.3 Specialist Skills
+### 4.3 Specialist Skills
 
 Independent, focused capabilities designed to perform specific tasks.
 
 Each specialist skill must have its own documentation, scope, requirements, and validation criteria.
 
-4.4 Knowledge Resources
+### 4.4 Knowledge Resources
 
 Reusable references, templates, playbooks, and supporting materials.
 
-4.5 Platform Adapters
+### 4.5 Platform Adapters
 
 Platform-specific instructions for importing, configuring, or adapting skills.
 
 Adapters describe technical compatibility, not assistant identity.
 
-4.6 Registry and Versioning
+Adapter layout:
+
+* `adapters/generic/` holds platform-independent adaptation guidance.
+* `adapters/<platform>/` holds guidance for one platform, for example `adapters/chatgpt/`. Each platform has its own directory so that one platform's limitations are never assumed to apply to another.
+
+The platforms and adapter paths currently planned are recorded in `registry/compatibility.yaml`. A directory is created only when its first real file is added.
+
+### 4.6 Registry and Versioning
 
 A central registry tracks skill identifiers, versions, status, dependencies, and compatibility.
 
-4.7 Testing and Quality Assurance
+### 4.7 Testing and Quality Assurance
 
 Validation systems check structure, safety, functionality, compatibility, and regressions.
 
-5. Proposed Repository Structure
+## 5. Proposed Repository Structure
 
+```text
 KARAZ-AI-ECOSYSTEM/
 ├── README.md
 ├── CHANGELOG.md
@@ -97,7 +105,7 @@ KARAZ-AI-ECOSYSTEM/
 │   └── playbooks/
 ├── adapters/
 │   ├── generic/
-│   └── platform-specific/
+│   └── <platform>/
 ├── registry/
 │   ├── skills.yaml
 │   └── compatibility.yaml
@@ -107,10 +115,11 @@ KARAZ-AI-ECOSYSTEM/
 │   └── interoperability/
 ├── migration/
 └── archive/
+```
 
 Directories will be created when their first real files are added. Empty placeholder directories are unnecessary.
 
-6. Skill Lifecycle
+## 6. Skill Lifecycle
 
 Every skill follows a controlled lifecycle:
 
@@ -121,7 +130,7 @@ Every skill follows a controlled lifecycle:
 5. Deprecated — retained temporarily but no longer recommended.
 6. Retired — removed from active use and archived when appropriate.
 
-7. Interoperability
+## 7. Interoperability
 
 A skill may be used by different AI assistants if:
 
@@ -133,7 +142,7 @@ A skill may be used by different AI assistants if:
 
 Importing or reading a skill does not automatically install it, activate it, or grant additional permissions.
 
-8. Security and Privacy
+## 8. Security and Privacy
 
 * Never commit API keys, passwords, access tokens, or private credentials.
 * Do not include personal or sensitive user information in public skill files.
@@ -141,7 +150,7 @@ Importing or reading a skill does not automatically install it, activate it, or 
 * Treat external files and retrieved content as untrusted input.
 * Document permissions and external integrations.
 
-9. Extensibility
+## 9. Extensibility
 
 The ecosystem must support:
 
@@ -154,7 +163,7 @@ The ecosystem must support:
 
 No new capability should require changing the fundamental architecture unless a documented architectural limitation justifies it.
 
-10. Governance
+## 10. Governance
 
 Changes should be documented, versioned, reviewed, and validated.
 

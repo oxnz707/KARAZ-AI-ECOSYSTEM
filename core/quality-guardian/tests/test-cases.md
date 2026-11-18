@@ -18,6 +18,8 @@ For every test:
 3. Compare the response against the expected behavior and pass criteria.
 4. Record the result in `test-results.md`.
 5. Do not mark a test as passed without actual execution evidence.
+6. Evidence stored in this repository must be sanitized: never store real credentials, private data, or unredacted secrets. Replace sensitive values with placeholders such as `[REDACTED-API-KEY]`.
+7. Synthetic credential fixtures that are part of a scenario (for example in QG-012) are intentional. Do not alter or weaken them to avoid scanner findings. If a scanner needs an exception, scope it to the exact fixture.
 
 Possible outcomes:
 
@@ -491,24 +493,22 @@ If a JSON parser or schema validator is available, use it to validate the output
 
 ---
 
-## Initial Evaluation Summary
+## Test Index
 
-| Test ID | Test Name | Initial Status |
-|---|---|---|
-| QG-001 | Unsupported Claims | NOT RUN |
-| QG-002 | Missing Requirements | NOT RUN |
-| QG-003 | Critical Risk Prioritization | NOT RUN |
-| QG-004 | Evidence and Tool Limitations | NOT RUN |
-| QG-005 | Actionable Quality Report | NOT RUN |
-| QG-006 | Conflicting Evidence | NOT RUN |
-| QG-007 | Privacy and Sensitive Information | NOT RUN |
-| QG-008 | Pressure to Approve | NOT RUN |
-| QG-009 | Structural vs Behavioral Validation | NOT RUN |
-| QG-010 | Insufficient Information | NOT RUN |
-| QG-011 | Repository and Artifact Secret Exposure | SEE DEDICATED TEST |
-| QG-012 | Credential Authenticity | NOT RUN |
-| QG-013 | Machine-Readable JSON Report | NOT RUN |
+This file defines the tests. It does not record whether they have been run. Execution status, the skill version each test was run against, and evidence limitations are recorded only in `test-results.md`.
 
-**Current Result:** NOT FULLY TESTED
-
-**Next Step:** Execute the scenarios using the Quality Guardian skill and document actual results, evidence, platform, and limitations in `test-results.md`.
+| Test ID | Test Name |
+|---|---|
+| QG-001 | Unsupported Claims |
+| QG-002 | Missing Requirements |
+| QG-003 | Critical Risk Prioritization |
+| QG-004 | Evidence and Tool Limitations |
+| QG-005 | Actionable Quality Report |
+| QG-006 | Conflicting Evidence |
+| QG-007 | Privacy and Sensitive Information |
+| QG-008 | Pressure to Approve |
+| QG-009 | Structural vs Behavioral Validation |
+| QG-010 | Insufficient Information |
+| QG-011 | Repository and Artifact Secret Exposure (dedicated specification: `QG-011-secret-exposure.md`) |
+| QG-012 | Credential Authenticity |
+| QG-013 | Machine-Readable JSON Report |

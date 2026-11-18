@@ -1,12 +1,12 @@
-KARAZ AI ECOSYSTEM — Development Roadmap
+# KARAZ AI ECOSYSTEM — Development Roadmap
 
-1. Purpose
+## 1. Purpose
 
 This roadmap defines the staged implementation plan for building KARAZ AI ECOSYSTEM into a modular, maintainable, portable, and verifiable capability library.
 
 The roadmap is intentionally incremental. Each phase should produce reviewable artifacts and pass its exit criteria before dependent work is treated as complete.
 
-2. Non-Negotiable Architecture Principles
+## 2. Non-Negotiable Architecture Principles
 
 * The repository stores reusable capabilities, not AI identities.
 * Every AI assistant retains its own name, personality, communication style, platform configuration, tools, permissions, and policies.
@@ -16,9 +16,9 @@ The roadmap is intentionally incremental. Each phase should produce reviewable a
 * Public repository content must not contain credentials or private user information.
 * No capability is considered installed, activated, or validated without evidence.
 
-3. Implementation Phases
+## 3. Implementation Phases
 
-Phase 0 — Foundation and Governance
+### Phase 0 — Foundation and Governance
 
 Goal: Establish the repository’s architecture, documentation standards, and governance rules.
 
@@ -40,7 +40,7 @@ Exit criteria:
 * Identity independence and security principles are explicit.
 * No secrets or private user data are present in tracked files.
 
-Phase 1 — Core Operating Standards
+### Phase 1 — Core Operating Standards
 
 Goal: Define reusable cross-domain operating capabilities and contracts before building domain frameworks.
 
@@ -62,7 +62,7 @@ Exit criteria:
 * Dependencies and handoff rules are documented.
 * Core standards can be referenced by meta-skills and specialist skills without copying contradictory instructions.
 
-Phase 2 — Meta-Skills Framework
+### Phase 2 — Meta-Skills Framework
 
 Goal: Organize related specialist capabilities into coherent domain-level frameworks.
 
@@ -90,7 +90,7 @@ Exit criteria:
 * Dependencies and routing behavior are explicit.
 * Domain boundaries and overlap are reviewed.
 
-Phase 3 — Specialist Skill Reconstruction
+### Phase 3 — Specialist Skill Reconstruction
 
 Goal: Rebuild the existing skill inventory as independent, improved, testable specialist skills.
 
@@ -114,7 +114,7 @@ Exit criteria:
 * Tests and known limitations are documented.
 * Registry status matches the evidence.
 
-Phase 4 — Platform Adapters and Adoption
+### Phase 4 — Platform Adapters and Adoption
 
 Goal: Make skills adoptable on supported AI platforms without assuming identical platform capabilities.
 
@@ -132,7 +132,7 @@ Exit criteria:
 * Retrieval, understanding, registration, activation, and execution are reported separately.
 * No adapter claims unsupported functionality.
 
-Phase 5 — Testing and Quality Infrastructure
+### Phase 5 — Testing and Quality Infrastructure
 
 Goal: Establish repeatable checks for repository integrity and skill behavior.
 
@@ -153,7 +153,7 @@ Exit criteria:
 * Failures are reported clearly.
 * Release status is blocked when mandatory checks fail.
 
-Phase 6 — Release and Maintenance
+### Phase 6 — Release and Maintenance
 
 Goal: Operate the ecosystem as a versioned, maintainable capability library.
 
@@ -174,7 +174,7 @@ Exit criteria:
 * Deprecated and retired capabilities are clearly marked.
 * Maintenance does not silently break dependent skills.
 
-4. Working Method
+## 4. Working Method
 
 Build incrementally and review each deliverable before moving to the next dependent stage.
 
@@ -189,7 +189,7 @@ For each implementation unit:
 
 Do not create empty directories or placeholder skills merely to make the repository look complete.
 
-5. Priority and Sequencing
+## 5. Priority and Sequencing
 
 The intended order is:
 
@@ -203,7 +203,7 @@ The intended order is:
 
 Dependencies may justify adjusting the order, but changes should be documented.
 
-6. Scope Control
+## 6. Scope Control
 
 * Do not merge distinct specialist responsibilities merely to reduce file count.
 * Do not create a new skill when an existing skill can be improved without harming its focus.
@@ -212,10 +212,10 @@ Dependencies may justify adjusting the order, but changes should be documented.
 * Do not mark work complete based solely on a draft or successful file upload.
 * Keep personal profile information and private working context outside the public repository unless explicitly reviewed and approved for publication.
 
-7. Current Status
+## 7. Current Status
 
-Current phase: Phase 0 — Foundation and Governance.
+Current phase: Phase 0 — Foundation and Governance. Its exit criteria have not yet been formally recorded as met.
 
-Next planned phase: Phase 1 — Core Operating Standards.
+Phase 1 — Core Operating Standards has started: one of the ten planned core capabilities (Quality Guardian, version 0.3.0) exists as a draft. It is not validated or released. The other core capabilities have not been started.
 
 The roadmap is a living document. Update it when priorities, dependencies, or verified platform capabilities change.
