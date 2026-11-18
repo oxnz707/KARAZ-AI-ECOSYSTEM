@@ -3,6 +3,7 @@ schema_version: "1.0"
 platforms:
   generic:
     status: "planned"
+    adapter: "adapters/generic/"
     description: "Platform-independent skill format."
 
   chatgpt:

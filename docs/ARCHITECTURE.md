@@ -71,6 +71,13 @@ Platform-specific instructions for importing, configuring, or adapting skills.
 
 Adapters describe technical compatibility, not assistant identity.
 
+Adapter layout:
+
+* `adapters/generic/` holds platform-independent adaptation guidance.
+* `adapters/<platform>/` holds guidance for one platform, for example `adapters/chatgpt/`. Each platform has its own directory so that one platform's limitations are never assumed to apply to another.
+
+The platforms and adapter paths currently planned are recorded in `registry/compatibility.yaml`. A directory is created only when its first real file is added.
+
 ### 4.6 Registry and Versioning
 
 A central registry tracks skill identifiers, versions, status, dependencies, and compatibility.
@@ -98,7 +105,7 @@ KARAZ-AI-ECOSYSTEM/
 │   └── playbooks/
 ├── adapters/
 │   ├── generic/
-│   └── platform-specific/
+│   └── <platform>/
 ├── registry/
 │   ├── skills.yaml
 │   └── compatibility.yaml
