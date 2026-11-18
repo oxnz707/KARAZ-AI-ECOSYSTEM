@@ -26,4 +26,20 @@ skill_types:
   - meta
   - specialist
 
-skills: []
+skills:
+  - id: quality-guardian
+    name: "Quality Guardian"
+    type: core
+    version: "0.3.0"
+    status: draft
+    path: "core/quality-guardian/"
+    documentation: "core/quality-guardian/SKILL.md"
+    # SKILL.md lists "Core operating standards" as a dependency. That is a document
+    # (core/README.md), not a registered skill, so no skill dependencies are declared here.
+    dependencies: []
+    platform_compatibility: "registry/compatibility.yaml"
+    validation:
+      tests: "core/quality-guardian/tests/test-cases.md"
+      results: "core/quality-guardian/tests/test-results.md"
+      behavioral_scenario_evaluation: "recorded"
+      repository_security_scan: "not_run"

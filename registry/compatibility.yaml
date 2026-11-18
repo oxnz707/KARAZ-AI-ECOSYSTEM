@@ -34,4 +34,15 @@ rules:
   - "Document platform-specific limitations."
   - "Verify required tools and permissions before execution."
 
-skills: []
+skills:
+  - skill_id: quality-guardian
+    skill_version: "0.3.0"
+    platforms:
+      chatgpt:
+        compatibility: unverified
+        evidence: "Scenario evaluations QG-001 to QG-013 are recorded in core/quality-guardian/tests/test-results.md (QG-001 to QG-010 on skill 0.1.0, QG-011 on 0.2.0, QG-012 and QG-013 on 0.3.0)."
+        limitations: "Run in the same session that loaded the skill, so not independent. Registration and activation were not verified. Complete responses are not preserved in this repository."
+      gemini:
+        compatibility: unverified
+        evidence: "Scenario evaluations QG-011 (skill 0.2.0), QG-012 and QG-013 (skill 0.3.0) are recorded in core/quality-guardian/tests/test-results.md."
+        limitations: "The user supplied the skill text; Gemini did not retrieve the repository. Registration and activation were not verified. Complete responses are not preserved in this repository."
