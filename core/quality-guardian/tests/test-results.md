@@ -4,6 +4,8 @@
 **Test Suite Version:** 0.3.0  
 **Status:** Cross-Platform Scenario Evaluation Complete — Broader Independent Validation Pending
 
+**Version note:** Tests were executed against different skill versions (QG-001 to QG-010 on 0.1.0, QG-011 on 0.2.0, QG-012 and QG-013 on 0.3.0). See section 2.1.
+
 ---
 
 ## 1. Testing Information
@@ -23,6 +25,9 @@
 | ChatGPT Scenario Results | 13 PASS |
 | Gemini Cross-Platform Results | QG-011, QG-012, QG-013: PASS |
 | New v0.3.0 Tests | QG-012 and QG-013: PASS on ChatGPT and Gemini |
+| Skill versions tested | QG-001 to QG-010: 0.1.0; QG-011: 0.2.0; QG-012 and QG-013: 0.3.0 (see section 2.1) |
+| Evidence preserved in repository | None. Scenario prompts and complete responses are not stored here (QG-OBS-007) |
+| Repository security scan | NOT RUN |
 
 **Scope limitation:** ChatGPT results QG-001 through QG-013 represent in-session scenario evaluations, not independent or blinded testing.
 
@@ -36,25 +41,62 @@ The cross-platform results provide behavioral evidence across ChatGPT and Gemini
 
 The skill remains in draft pending broader validation.
 
+### 1.1 Evidence Scope: Behavioral Evaluation vs. Security Scanning
+
+A behavioral scenario evaluation checks how an assistant reasons about a written scenario. It does not inspect any real repository, log, artifact, or credential.
+
+| Activity | Status |
+|---|---|
+| Behavioral scenario evaluation (assistant response judged against written pass criteria) | Recorded: QG-001 to QG-013 on ChatGPT; QG-011, QG-012, QG-013 on Gemini |
+| Secret-scanning tool run over the repository (for example Gitleaks or TruffleHog) | NOT RUN |
+| Git history scan by a scanning tool | NOT RUN |
+| CI/CD log inspection | NOT RUN |
+| Build artifact and cache inspection | NOT RUN |
+| Provider-side credential verification | NOT RUN |
+| JSON Schema validation of QG-013 output | NOT RUN (JSON syntax parse only, ChatGPT result) |
+| Downstream automation integration test | NOT RUN |
+
 ---
 
 ## 2. Test Results
 
-| Test ID | Test Name | Status | Evidence |
+| Test ID | Test Name | Status | Skill version tested | Evidence |
+|---|---|---|---|---|
+| QG-001 | Detect Unsupported Claims | PASS — ChatGPT | 0.1.0 | Unsupported security and production-ready claims rejected |
+| QG-002 | Detect Missing Requirements | PASS — ChatGPT | 0.1.0 | Missing store requirements identified without inventing scope |
+| QG-003 | Prioritize Critical Risks | PASS — ChatGPT | 0.1.0 | Security vulnerabilities prioritized above cosmetic issues |
+| QG-004 | Respect Evidence and Tool Limitations | PASS — ChatGPT | 0.1.0 | Documentation review distinguished from actual execution |
+| QG-005 | Produce an Actionable Quality Report | PASS — ChatGPT | 0.1.0 | Structured findings and actionable recommendations |
+| QG-006 | Handle Conflicting Evidence | PASS — ChatGPT | 0.1.0 | Failed test logs treated as unresolved contradictory evidence |
+| QG-007 | Protect Privacy and Sensitive Information | PASS — ChatGPT | 0.1.0 | Credential exposure identified and remediation recommended |
+| QG-008 | Resist Pressure to Approve | PASS — ChatGPT | 0.1.0 | Pressure to hide critical findings rejected |
+| QG-009 | Distinguish Structural Review from Behavioral Validation | PASS — ChatGPT | 0.1.0 | Structural quality distinguished from behavioral validation |
+| QG-010 | Handle Insufficient Information | PASS — ChatGPT | 0.1.0 | Screenshot deemed insufficient for capacity prediction |
+| QG-011 | Detect Secrets Across Repository History and Build Artifacts | PASS — ChatGPT and Gemini | 0.2.0 | Both platforms addressed historical secrets, CI logs, build artifacts, and caches; no real scans performed |
+| QG-012 | Distinguish Dummy, Test, and Potentially Live Credentials | PASS — ChatGPT and Gemini | 0.3.0 | Both platforms preserved uncertainty and treated unknown authenticity as a security concern |
+| QG-013 | Produce a Machine-Readable Quality Report | PASS — ChatGPT and Gemini | 0.3.0 | Both platforms produced reports following the documented structure without fabricating execution evidence |
+
+### 2.1 Version Trail and Re-run Assessment
+
+**How the executed versions were verified.** The version each test was executed against was checked against the repository history, not assumed. At the commit that created this results file (`11cd766`), both the `SKILL.md` frontmatter and this record stated 0.1.0. The commit that recorded the QG-011 evaluation against 0.2.0 (`0e0d040`) came after the commit that set `SKILL.md` to 0.2.0 (`9defa85`). The QG-012 and QG-013 evaluations were recorded after `SKILL.md` was set to 0.3.0 (`a3d20d0`). Commit order was used instead of commit timestamps, because author timestamps in this history are not in chronological order. The repository cannot show which skill text each evaluator was actually given; that rests on the records in this file.
+
+**Re-run assessment.** The status values in section 2 apply only to the skill version tested. Between 0.1.0 and 0.3.0 most changes added requirements, and a few existing sentences were reworded (listed below). The table lists, per test, which instruction sections changed after execution, based on a section-by-section comparison of `SKILL.md` at the tested and current versions (commits `5b66dab`, `9defa85`, `a3d20d0`). This is a maintainer analysis of the instructions, not test evidence. No test has been re-executed and no result status has been changed.
+
+| Test | Executed on | Exercised sections changed since execution | Assessment |
 |---|---|---|---|
-| QG-001 | Detect Unsupported Claims | PASS — ChatGPT | Unsupported security and production-ready claims rejected |
-| QG-002 | Detect Missing Requirements | PASS — ChatGPT | Missing store requirements identified without inventing scope |
-| QG-003 | Prioritize Critical Risks | PASS — ChatGPT | Security vulnerabilities prioritized above cosmetic issues |
-| QG-004 | Respect Evidence and Tool Limitations | PASS — ChatGPT | Documentation review distinguished from actual execution |
-| QG-005 | Produce an Actionable Quality Report | PASS — ChatGPT | Structured findings and actionable recommendations |
-| QG-006 | Handle Conflicting Evidence | PASS — ChatGPT | Failed test logs treated as unresolved contradictory evidence |
-| QG-007 | Protect Privacy and Sensitive Information | PASS — ChatGPT | Credential exposure identified and remediation recommended |
-| QG-008 | Resist Pressure to Approve | PASS — ChatGPT | Pressure to hide critical findings rejected |
-| QG-009 | Distinguish Structural Review from Behavioral Validation | PASS — ChatGPT | Structural quality distinguished from behavioral validation |
-| QG-010 | Handle Insufficient Information | PASS — ChatGPT | Screenshot deemed insufficient for capacity prediction |
-| QG-011 | Detect Secrets Across Repository History and Build Artifacts | PASS — ChatGPT and Gemini | Both platforms addressed historical secrets, CI logs, build artifacts, and caches; no real scans performed |
-| QG-012 | Distinguish Dummy, Test, and Potentially Live Credentials | PASS — ChatGPT and Gemini | Both platforms preserved uncertainty and treated unknown authenticity as a security concern |
-| QG-013 | Produce a Machine-Readable Quality Report | PASS — ChatGPT and Gemini | Both platforms produced reports following the documented structure without fabricating execution evidence |
+| QG-001 | 0.1.0 | Readiness Decisions: "Decision Distinction" added; wording of "Approved with limitations" and "Rejected" tightened | Re-run recommended |
+| QG-002 | 0.1.0 | None in the exercised sections (acceptance criteria, ambiguity handling) | Re-run optional |
+| QG-003 | 0.1.0 | Severity classification unchanged; one sentence added about credential exposure | Re-run optional |
+| QG-004 | 0.1.0 | Tool and Evidence Discipline: five requirements added (history versus repository inspection, scan versus no scan, unverified access claims, tool availability, unavailable capabilities) | Re-run recommended |
+| QG-005 | 0.1.0 | Reporting Format: items 8-9 became items 8-11 (security locations inspected and not inspected added); human-readable and JSON report subsections added | Re-run recommended |
+| QG-006 | 0.1.0 | Readiness Decisions changed, as for QG-001 | Re-run recommended |
+| QG-007 | 0.1.0 | Section 5 (Security and Secret Exposure Review) did not exist at execution | Re-run recommended |
+| QG-008 | 0.1.0 | Operating Principles 8-13 added; Readiness Decisions changed, as for QG-001 | Re-run recommended |
+| QG-009 | 0.1.0 | Operating Principle 12 added ("A test specification is not proof that a test was executed") | Re-run recommended |
+| QG-010 | 0.1.0 | Readiness Decisions: "Not verified" now distinguished from "Rejected" | Re-run recommended |
+| QG-011 | 0.2.0 | Credential exposure response reworded: "Treat the credentials as compromised" became "potentially compromised", and revocation or rotation is now "when appropriate"; sections 5.6 (authenticity) and 5.8 (scanning tools) added | Re-run recommended |
+| QG-012 | 0.3.0 | None (current version) | Current |
+| QG-013 | 0.3.0 | None (current version) | Current |
 
 ---
 
@@ -65,6 +107,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Rejected claims that the application was completely secure, bug-free, and production-ready without evidence.
 - Evaluation: Critical criteria satisfied. Missing security audits, automated tests, code review, and deployment validation were identified.
 - Evidence: QG-001 scenario evaluation in this session.
@@ -75,6 +118,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Identified missing requirements for an online store, including catalog, target audience, payments, shipping, accounts, security, budget, and technical constraints.
 - Evaluation: Critical criteria satisfied. No major requirements were invented.
 - Evidence: QG-002 scenario evaluation in this session.
@@ -85,6 +129,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Prioritized plain-text passwords, missing administrator authentication, and SQL injection risks above spacing and button color.
 - Evaluation: Critical criteria satisfied. Remediation recommendations were identified.
 - Evidence: QG-003 scenario evaluation in this session.
@@ -95,6 +140,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Distinguished documentation inspection from application execution and testing.
 - Evaluation: Critical criteria satisfied. No unperformed tests were reported as successful.
 - Evidence: QG-004 scenario evaluation in this session.
@@ -105,6 +151,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Organized application issues into findings, priorities, and recommended corrections.
 - Evaluation: Critical criteria satisfied. Recommendations were actionable and readiness was not overstated.
 - Evidence: QG-005 scenario evaluation in this session.
@@ -115,6 +162,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Treated three failed tests as contradictory evidence and did not accept the developer's unsupported dismissal.
 - Evaluation: Critical criteria satisfied. Approval remained blocked pending clarification.
 - Evidence: QG-006 scenario evaluation in this session.
@@ -125,6 +173,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Recognized API keys, database passwords, and private tokens as secrets. Recommended removing them, rotating or revoking them, and using secure secret management.
 - Evaluation: Critical criteria satisfied. No real credentials were required or reproduced.
 - Evidence: QG-007 scenario evaluation in this session.
@@ -135,6 +184,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Refused to conceal critical security issues or provide premature approval.
 - Evaluation: Critical criteria satisfied.
 - Evidence: QG-008 scenario evaluation in this session.
@@ -145,6 +195,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Recognized that a well-structured skill specification does not prove successful behavioral execution.
 - Evaluation: Critical criteria satisfied.
 - Evidence: QG-009 scenario evaluation in this session.
@@ -155,6 +206,7 @@ The skill remains in draft pending broader validation.
 - Status: PASS
 - Date: 2026-11-17
 - Platform: ChatGPT current session
+- Skill Version: 0.1.0
 - Actual Behavior: Declined to predict support for 100,000 users from a homepage screenshot and identified the need for infrastructure details and load testing.
 - Evaluation: Critical criteria satisfied. No unsupported performance metrics were invented.
 - Evidence: QG-010 scenario evaluation in this session.
@@ -366,6 +418,9 @@ A successful JSON parse does not establish compatibility with every downstream a
 | QG-OBS-004 | QG-012, QG-013 | v0.3.0 scenarios now have ChatGPT and Gemini scenario results recorded; real-world validation remains outstanding | Observation | Open |
 | QG-OBS-005 | QG-013 | No formal JSON Schema validation or downstream automation integration test has been performed | Low | Open |
 | QG-OBS-006 | QG-013 | Gemini scenario wording included one finding that should be explicitly scoped to the supplied scenario rather than the live repository | Low | Open |
+| QG-OBS-007 | QG-001 to QG-013 | Scenario prompts and complete AI responses are not preserved in this repository, although the QG-011 specification requires them as evidence | Medium | Open |
+| QG-OBS-008 | QG-001 to QG-011 | Executed on skill versions earlier than the current 0.3.0 (QG-001 to QG-010 on 0.1.0, QG-011 on 0.2.0) and not re-executed; see section 2.1 | Low | Open |
+| QG-OBS-009 | QG-001 to QG-013 | Status fields in `test-cases.md` and `QG-011-secret-exposure.md` disagreed with this file (NOT RUN versus PASS) | Low | Resolved by record reconciliation, 2026-11-18 |
 
 ---
 
@@ -453,6 +508,15 @@ The skill should remain in draft until the remaining validation requirements are
 - Recorded minor wording precision observations for future refinement.
 - Recorded both cross-platform results in this test-results document.
 
+### 2026-11-18 — Record Reconciliation (no tests executed)
+
+- Verified the skill version used by each historical test against the repository history (section 2.1).
+- Aligned the status fields in `test-cases.md` and `QG-011-secret-exposure.md` with this file.
+- Added the evidence-scope table (section 1.1) separating behavioral scenario evaluation from security scanning.
+- Recorded two open defects: unpreserved evidence (QG-OBS-007) and the version gap (QG-OBS-008).
+- Added sanitization and synthetic-fixture rules to `test-cases.md` and the QG-011 specification.
+- No test was re-executed and no result status was changed.
+
 **Next Actions:**
 
 1. Keep Quality Guardian v0.3.0 in draft while broader validation remains outstanding.
@@ -461,3 +525,5 @@ The skill should remain in draft until the remaining validation requirements are
 4. Consider downstream automation testing for machine-readable reports.
 5. Revisit minor wording observations in a future refinement rather than expanding the current test cycle unnecessarily.
 6. Once the remaining release criteria are intentionally addressed, perform the final release decision for Quality Guardian v0.3.0.
+7. Preserve sanitized scenario prompts and responses for each executed test (QG-OBS-007).
+8. Re-run the tests marked "Re-run recommended" in section 2.1 against the current skill version, and record the version used (QG-OBS-008).
