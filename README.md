@@ -76,7 +76,7 @@ Each assistant must adopt capabilities using mechanisms actually supported by it
 
 This repository is in its foundation-building phase.
 
-The architecture, development standard, import and verification standard, and initial registries are established. Specialist skills have not yet been migrated or released.
+The architecture, development standard, import and verification standard, and initial registries are established. One core capability, Quality Guardian (version 0.3.0), exists as a draft. It has behavioral scenario evaluations on two platforms but has not been validated or released, and no repository security scan has been run. Specialist skills have not yet been migrated or released.
 
 See CHANGELOG.md for recorded changes.
 

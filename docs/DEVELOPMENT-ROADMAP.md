@@ -214,8 +214,8 @@ Dependencies may justify adjusting the order, but changes should be documented.
 
 ## 7. Current Status
 
-Current phase: Phase 0 — Foundation and Governance.
+Current phase: Phase 0 — Foundation and Governance. Its exit criteria have not yet been formally recorded as met.
 
-Next planned phase: Phase 1 — Core Operating Standards.
+Phase 1 — Core Operating Standards has started: one of the ten planned core capabilities (Quality Guardian, version 0.3.0) exists as a draft. It is not validated or released. The other core capabilities have not been started.
 
 The roadmap is a living document. Update it when priorities, dependencies, or verified platform capabilities change.

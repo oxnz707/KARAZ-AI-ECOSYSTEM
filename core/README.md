@@ -124,4 +124,6 @@ The Core layer has entered its specification phase.
 
 No individual Core capability should be considered implemented, validated, or released merely because it appears in this document.
 
+Quality Guardian (`quality-guardian/`) has a draft specification, version 0.3.0, with scenario-evaluation records. It is not validated or released. See `registry/skills.yaml`. The other capability areas listed above have no specification files yet.
+
 Each capability will be developed and reviewed independently.
