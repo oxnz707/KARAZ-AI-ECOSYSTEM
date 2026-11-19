@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:karaz:schema:registry:1.0",
+  "title": "KARAZ skills registry, schema 1.0",
+  "description": "Shape of registry/skills.yaml. Unknown keys are rejected, except keys starting with x_. The lists lifecycle_statuses and skill_types are the single home of those vocabularies; this schema checks shape only, and the validator checks membership. Normative text: docs/SKILL-STANDARD.md section 13.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ecosystem",
+    "registry_rules",
+    "lifecycle_statuses",
+    "skill_types",
+    "skills"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/schemaVersion" },
+    "ecosystem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "description"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "version": { "$ref": "#/$defs/semver" },
+        "description": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "patternProperties": { "^x_": {} },
+      "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+    },
+    "registry_rules": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" },
+      "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+    },
+    "lifecycle_statuses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "skill_types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "skills": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/skillEntry" }
+    }
+  },
+  "patternProperties": { "^x_": {} },
+  "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } },
+  "$defs": {
+    "reservedKey": {
+      "description": "Identity and activation words that no KARAZ file may use as a key (NR-4).",
+      "enum": [
+        "persona",
+        "identity",
+        "personality",
+        "voice",
+        "character",
+        "installed",
+        "activated",
+        "auto_install",
+        "auto_activate"
+      ]
+    },
+    "schemaVersion": {
+      "description": "MAJOR.MINOR as a quoted string. Required in this file.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "skillId": {
+      "description": "Lowercase kebab-case identifier, at most 64 characters.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "semver": {
+      "description": "Semantic Versioning 2.0.0. Quote the value in YAML so that it is read as a string.",
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "validationState": {
+      "description": "not_run, or recorded when evidence exists in the repository.",
+      "enum": ["not_run", "recorded"]
+    },
+    "skillEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "type",
+        "version",
+        "status",
+        "path",
+        "documentation",
+        "dependencies",
+        "platform_compatibility"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/skillId" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "type": { "$ref": "#/$defs/nonEmptyString" },
+        "version": { "$ref": "#/$defs/semver" },
+        "status": { "$ref": "#/$defs/nonEmptyString" },
+        "path": { "$ref": "#/$defs/nonEmptyString" },
+        "documentation": { "$ref": "#/$defs/nonEmptyString" },
+        "dependencies": {
+          "description": "Bare ids of registered skills. An empty list declares 'none'. Documents are not listed here.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/skillId" }
+        },
+        "platform_compatibility": { "$ref": "#/$defs/nonEmptyString" },
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tests": { "$ref": "#/$defs/nonEmptyString" },
+            "results": { "$ref": "#/$defs/nonEmptyString" },
+            "behavioral_scenario_evaluation": { "$ref": "#/$defs/validationState" },
+            "repository_security_scan": { "$ref": "#/$defs/validationState" }
+          },
+          "patternProperties": { "^x_": {} },
+          "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+        }
+      },
+      "patternProperties": { "^x_": {} },
+      "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+    }
+  }
+}
