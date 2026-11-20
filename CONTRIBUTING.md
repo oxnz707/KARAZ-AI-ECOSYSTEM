@@ -46,6 +46,16 @@ Follow `adapters/README.md`. Declare the adapter in `registry/compatibility.yaml
 
 Use the two commands in "Validate locally". The test suite uses only the Python standard library.
 
+## Validation and evidence
+
+A passing validator run checks structure only. It does not show that anything was evaluated, scanned, or reviewed. Evidence is recorded as described in `docs/EVIDENCE-MODEL.md`.
+
+* Record an evaluation or scan in an evidence record: `<skill-directory>/evidence/<id>.md` for a skill, `docs/evidence/<id>.md` for the repository. Create the directory when the first record is added.
+* A record states who or what executed the work, when, how independent it was, where the preserved artifact is, the result, and its limitations. A record starts `unreviewed`.
+* A human reviewer who is not the executor marks a record `reviewed` by writing the reviewer's name, the date, and what was checked. An assistant does not review its own work.
+* Do not set `behavioral_scenario_evaluation` or `repository_security_scan` to `recorded` in `registry/skills.yaml` without a matching reviewed record (`docs/SKILL-STANDARD.md` §14). Today this is checked by review. The validator does not check it yet.
+* Evidence is public. Never put secrets, private user information, or raw scanner output in a record or its artifact.
+
 ## Submit
 
 1. Create a branch named `p<N>/<topic>` from the current `main`.

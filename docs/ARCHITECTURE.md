@@ -92,10 +92,15 @@ Validation systems check structure, safety, functionality, compatibility, and re
 KARAZ-AI-ECOSYSTEM/
 ├── README.md
 ├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── .github/
+│   └── workflows/
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── SKILL-STANDARD.md
-│   └── IMPORT-AND-VERIFICATION.md
+│   ├── IMPORT-AND-VERIFICATION.md
+│   ├── EVIDENCE-MODEL.md
+│   └── DEVELOPMENT-ROADMAP.md
 ├── core/
 ├── meta-skills/
 ├── specialist-skills/

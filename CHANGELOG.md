@@ -24,6 +24,9 @@ The repository version (`ecosystem.version` in `registry/skills.yaml`) and each 
 * `.gitignore` for Python cache files and virtual environments.
 * Pull-request workflow (`.github/workflows/validate.yml`) that installs the hash-locked dependencies, runs the structural validator, and runs the structural tests. It runs on `pull_request` and `workflow_dispatch`, with read-only token permissions, no secrets, and third-party actions pinned by commit SHA.
 * Contributor guide (`CONTRIBUTING.md`).
+* Evidence and provenance model (`docs/EVIDENCE-MODEL.md`): three separate levels (structural validation, evidence of performance, human verification), an evidence record template, independence levels, verification rules, and the qualification rule for security-scan evidence. Documentation only; no schema is added.
+* Evidence requirements EV-1 and EV-2 for the `validated` and `released` statuses (`docs/SKILL-STANDARD.md` §14). They are enforced by pull request review. The validator does not check them yet.
+* Future source-material research list, with the license, attribution, and provenance principle (`docs/DEVELOPMENT-ROADMAP.md` §7). Research sources only; none is a dependency and nothing was imported.
 
 ### Changed
 
@@ -33,12 +36,15 @@ The repository version (`ecosystem.version` in `registry/skills.yaml`) and each 
 * Status text in `README.md`, `core/README.md`, and the roadmap aligned with the repository's actual state.
 * `docs/SKILL-STANDARD.md` §4: the `type` field now names the registry values `core`, `meta`, and `specialist`.
 * `docs/ARCHITECTURE.md` §5: the proposed repository tree lists `schemas/`, `tools/`, and `adapters/README.md`.
+* `docs/ARCHITECTURE.md` §5: the tree also lists `CONTRIBUTING.md`, `.github/workflows/`, `docs/EVIDENCE-MODEL.md`, and `docs/DEVELOPMENT-ROADMAP.md`.
+* `README.md` status and repository guide, `CONTRIBUTING.md` (new Validation and evidence section), `docs/IMPORT-AND-VERIFICATION.md` §6 (cross-reference), and `docs/DEVELOPMENT-ROADMAP.md` §7 (P2 status) updated.
 
 ### Notes
 
 * No skill is validated or released. `quality-guardian` remains a draft.
 * Quality Guardian results are behavioral scenario evaluations only. No repository security scan has been run.
 * The structural validator checks structure only. A passing run, locally or in the `validate` workflow, does not validate or release any skill. No registry file or skill file was changed.
+* The evidence model is documentation. No evidence record in its format exists yet, and no repository security scan has been run.
 
 ## [0.1.0] - Initial Foundation
 

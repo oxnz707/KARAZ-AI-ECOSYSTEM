@@ -112,6 +112,8 @@ After an adoption attempt, provide:
 | Limitations | Platform or tool restrictions |
 | Evidence | Observable confirmation and test results |
 
+When an adoption attempt is recorded in the repository as evidence, it follows `docs/EVIDENCE-MODEL.md`. The evidence type for adoption is reserved there until adapters have real platform evidence.
+
 ## 7. Security
 
 * Never request or expose private access tokens unnecessarily.
