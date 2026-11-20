@@ -39,6 +39,8 @@ KARAZ AI ECOSYSTEM does not impose a shared persona or require assistants to bec
 | `knowledge/` | References, templates, and playbooks |
 | `adapters/` | Platform-specific adaptation guidance |
 | `registry/` | Skill and compatibility records |
+| `schemas/` | JSON Schemas for skill frontmatter and the registries |
+| `tools/` | Read-only structural validator and its hash-locked dependencies |
 | `tests/` | Quality and interoperability validation |
 | `migration/` | Controlled skill reconstruction |
 | `archive/` | Retired or superseded materials |
@@ -85,6 +87,8 @@ See CHANGELOG.md for recorded changes.
 Changes should be scoped, documented, versioned, and verified.
 
 Update the relevant registry and changelog when a skill is added, changed, released, deprecated, or retired.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to propose a change, validate it locally, and submit it.
 
 ---
 

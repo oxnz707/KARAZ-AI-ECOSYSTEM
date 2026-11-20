@@ -218,4 +218,11 @@ Current phase: Phase 0 — Foundation and Governance. Its exit criteria have not
 
 Phase 1 — Core Operating Standards has started: one of the ten planned core capabilities (Quality Guardian, version 0.3.0) exists as a draft. It is not validated or released. The other core capabilities have not been started.
 
+Two work packages have been carried out alongside the phases above. P0 (truthful records) aligned the repository's status text and records with its actual state. P1 (portable skill foundation) pulled forward only the structural parts of two later phases:
+
+* From Phase 4: a portable skill format with JSON Schemas, and an adapter contract (`adapters/README.md`). No platform adapter exists and no platform adoption has been tested.
+* From Phase 5: structural checks (a read-only validator and structural tests, run by a pull-request workflow). Safety, privacy, secret-detection, scenario, regression, and interoperability checks are not part of P1.
+
+Phases 4 and 5 remain open. P1 does not validate or release any skill.
+
 The roadmap is a living document. Update it when priorities, dependencies, or verified platform capabilities change.

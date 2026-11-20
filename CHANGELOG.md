@@ -22,6 +22,8 @@ The repository version (`ecosystem.version` in `registry/skills.yaml`) and each 
 * Hash-locked dependency install for the validator (`tools/requirements.in`, `tools/requirements.txt`; PyYAML and jsonschema).
 * Structural test suite (`tests/structure/`, standard-library `unittest`) with a canonical fixture and a pinned backward-compatibility baseline of the real records (`tests/structure/fixtures/baseline-1.0/`).
 * `.gitignore` for Python cache files and virtual environments.
+* Pull-request workflow (`.github/workflows/validate.yml`) that installs the hash-locked dependencies, runs the structural validator, and runs the structural tests. It runs on `pull_request` and `workflow_dispatch`, with read-only token permissions, no secrets, and third-party actions pinned by commit SHA.
+* Contributor guide (`CONTRIBUTING.md`).
 
 ### Changed
 
@@ -36,7 +38,7 @@ The repository version (`ecosystem.version` in `registry/skills.yaml`) and each 
 
 * No skill is validated or released. `quality-guardian` remains a draft.
 * Quality Guardian results are behavioral scenario evaluations only. No repository security scan has been run.
-* The structural validator checks structure only. A passing run does not validate or release any skill, and it is not wired into CI yet. No registry file or skill file was changed.
+* The structural validator checks structure only. A passing run, locally or in the `validate` workflow, does not validate or release any skill. No registry file or skill file was changed.
 
 ## [0.1.0] - Initial Foundation
 
