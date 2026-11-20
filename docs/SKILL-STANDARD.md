@@ -212,7 +212,7 @@ This section writes down the portable skill format that the repository already u
 
 * **Existing rules.** Every rule listed in §13.8 was already stated by this repository's standards, registry files, or records. This section only restates it in a form that tools can check.
 * **Normative requirements (NR-1 to NR-8).** Each of these is new. It is stated in §13.7 with the reason it is needed, its authoritative source, and its effect on existing records. It becomes binding when the pull request that adds this section is merged.
-* **Enforcement.** The schemas in `schemas/` express the field shapes. No validator exists yet; until one does, these requirements are applied by review. No rule in this section changes a skill's status, and passing a structural check never validates or releases a skill.
+* **Enforcement.** The schemas in `schemas/` express the field shapes. The read-only structural validator in `tools/karaz_validate/` checks these requirements together with the existing rules. No rule in this section changes a skill's status, and passing a structural check never validates or releases a skill.
 * **No existing record is affected.** `core/quality-guardian/SKILL.md`, `registry/skills.yaml`, and `registry/compatibility.yaml` comply with every requirement here without modification.
 
 ### 13.2 Format contract

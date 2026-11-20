@@ -1,0 +1,45 @@
+schema_version: "1.0"
+
+ecosystem:
+  name: "KARAZ AI ECOSYSTEM"
+  version: "0.1.0"
+  description: "A platform-independent library of reusable AI capabilities."
+
+registry_rules:
+  unique_ids: true
+  semantic_versioning: true
+  require_skill_documentation: true
+  require_validation_before_release: true
+  require_dependency_declarations: true
+  require_platform_compatibility_declarations: true
+
+lifecycle_statuses:
+  - proposed
+  - draft
+  - validated
+  - released
+  - deprecated
+  - retired
+
+skill_types:
+  - core
+  - meta
+  - specialist
+
+skills:
+  - id: quality-guardian
+    name: "Quality Guardian"
+    type: core
+    version: "0.3.0"
+    status: draft
+    path: "core/quality-guardian/"
+    documentation: "core/quality-guardian/SKILL.md"
+    # SKILL.md lists "Core operating standards" as a dependency. That is a document
+    # (core/README.md), not a registered skill, so no skill dependencies are declared here.
+    dependencies: []
+    platform_compatibility: "registry/compatibility.yaml"
+    validation:
+      tests: "core/quality-guardian/tests/test-cases.md"
+      results: "core/quality-guardian/tests/test-results.md"
+      behavioral_scenario_evaluation: "recorded"
+      repository_security_scan: "not_run"
