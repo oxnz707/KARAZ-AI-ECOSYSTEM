@@ -18,6 +18,10 @@ The repository version (`ecosystem.version` in `registry/skills.yaml`) and each 
 * JSON Schemas (draft 2020-12, schema version 1.0) for skill frontmatter, the skills registry, and the platform compatibility registry (`schemas/`).
 * Portable format and normative requirements NR-1 to NR-8 (`docs/SKILL-STANDARD.md` §13), with the existing rules they build on listed separately.
 * Adapter contract, including adapter status values and the authoritative wording of NR-5 (`adapters/README.md`).
+* Read-only structural validator (`tools/karaz_validate/`, run as `python -m tools.karaz_validate [--root PATH] [--format text|json]`) with 28 checks classified as existing rules, new normative requirements, or diagnostics. Exit 0 means no ERROR, 1 means an ERROR, 2 means the validator could not run; WARNING and INFO never fail a run. Files larger than 1 MiB are rejected (KZ-L001).
+* Hash-locked dependency install for the validator (`tools/requirements.in`, `tools/requirements.txt`; PyYAML and jsonschema).
+* Structural test suite (`tests/structure/`, standard-library `unittest`) with a canonical fixture and a pinned backward-compatibility baseline of the real records (`tests/structure/fixtures/baseline-1.0/`).
+* `.gitignore` for Python cache files and virtual environments.
 
 ### Changed
 
@@ -32,7 +36,7 @@ The repository version (`ecosystem.version` in `registry/skills.yaml`) and each 
 
 * No skill is validated or released. `quality-guardian` remains a draft.
 * Quality Guardian results are behavioral scenario evaluations only. No repository security scan has been run.
-* The schemas and requirements NR-1 to NR-8 are not yet enforced by any tool. No validator exists yet, and no registry file or skill file was changed.
+* The structural validator checks structure only. A passing run does not validate or release any skill, and it is not wired into CI yet. No registry file or skill file was changed.
 
 ## [0.1.0] - Initial Foundation
 

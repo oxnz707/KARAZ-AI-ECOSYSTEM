@@ -1,0 +1,34 @@
+schema_version: "1.0"
+
+platforms:
+  exampleplatform:
+    status: "draft"
+    adapter: "adapters/exampleplatform/"
+    notes: "Fictional platform used only by the structural tests."
+
+compatibility_levels:
+  - compatible
+  - compatible_with_adaptation
+  - partially_supported
+  - unsupported
+  - unverified
+
+rules:
+  - "Never assume platform compatibility without verification."
+
+skills:
+  - skill_id: example-core-skill
+    skill_version: "0.1.0"
+    platforms:
+      exampleplatform:
+        compatibility: unverified
+        evidence: "None. Nothing has been tested."
+        limitations: "Fixture only."
+
+  - skill_id: example-specialist-skill
+    skill_version: "0.1.0"
+    platforms:
+      exampleplatform:
+        compatibility: unverified
+        evidence: "None. Nothing has been tested."
+        limitations: "Fixture only."

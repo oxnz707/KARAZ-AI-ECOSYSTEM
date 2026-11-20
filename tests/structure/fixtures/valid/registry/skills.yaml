@@ -1,0 +1,55 @@
+schema_version: "1.0"
+
+ecosystem:
+  name: "Example ecosystem"
+  version: "0.1.0"
+  description: "Canonical fixture for the structural tests. It is not a real registry."
+
+registry_rules:
+  unique_ids: true
+  semantic_versioning: true
+  require_skill_documentation: true
+  require_validation_before_release: true
+  require_dependency_declarations: true
+  require_platform_compatibility_declarations: true
+
+lifecycle_statuses:
+  - proposed
+  - draft
+  - validated
+  - released
+  - deprecated
+  - retired
+
+skill_types:
+  - core
+  - meta
+  - specialist
+
+skills:
+  - id: example-core-skill
+    name: "Example Core Skill"
+    type: core
+    version: "0.1.0"
+    status: draft
+    path: "core/example-core-skill/"
+    documentation: "core/example-core-skill/SKILL.md"
+    dependencies: []
+    platform_compatibility: "registry/compatibility.yaml"
+    validation:
+      behavioral_scenario_evaluation: "not_run"
+      repository_security_scan: "not_run"
+
+  - id: example-specialist-skill
+    name: "Example Specialist Skill"
+    type: specialist
+    version: "0.1.0"
+    status: draft
+    path: "specialist-skills/example-specialist-skill/"
+    documentation: "specialist-skills/example-specialist-skill/SKILL.md"
+    dependencies:
+      - example-core-skill
+    platform_compatibility: "registry/compatibility.yaml"
+    validation:
+      behavioral_scenario_evaluation: "not_run"
+      repository_security_scan: "not_run"
