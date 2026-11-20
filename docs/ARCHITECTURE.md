@@ -104,11 +104,17 @@ KARAZ-AI-ECOSYSTEM/
 │   ├── templates/
 │   └── playbooks/
 ├── adapters/
+│   ├── README.md
 │   ├── generic/
 │   └── <platform>/
 ├── registry/
 │   ├── skills.yaml
 │   └── compatibility.yaml
+├── schemas/
+│   ├── skill-frontmatter.schema.json
+│   ├── registry.schema.json
+│   └── compatibility.schema.json
+├── tools/
 ├── tests/
 │   ├── structure/
 │   ├── safety/

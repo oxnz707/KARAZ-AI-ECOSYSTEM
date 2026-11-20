@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:karaz:schema:compatibility:1.0",
+  "title": "KARAZ platform compatibility registry, schema 1.0",
+  "description": "Shape of registry/compatibility.yaml. Unknown keys are rejected, except keys starting with x_. The list compatibility_levels is the single home of that vocabulary; this schema checks shape only, and the validator checks membership and cross-file references. Adapter status values are future, planned and draft (NR-5). Normative text: docs/SKILL-STANDARD.md section 13 and adapters/README.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "platforms",
+    "compatibility_levels",
+    "rules",
+    "skills"
+  ],
+  "properties": {
+    "schema_version": { "$ref": "#/$defs/schemaVersion" },
+    "platforms": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/platform" },
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+        "not": { "$ref": "#/$defs/reservedKey" }
+      }
+    },
+    "compatibility_levels": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "rules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "skills": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/skillRecord" }
+    }
+  },
+  "patternProperties": { "^x_": {} },
+  "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } },
+  "$defs": {
+    "reservedKey": {
+      "description": "Identity and activation words that no KARAZ file may use as a key (NR-4).",
+      "enum": [
+        "persona",
+        "identity",
+        "personality",
+        "voice",
+        "character",
+        "installed",
+        "activated",
+        "auto_install",
+        "auto_activate"
+      ]
+    },
+    "schemaVersion": {
+      "description": "MAJOR.MINOR as a quoted string. Required in this file.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "skillId": {
+      "description": "Lowercase kebab-case identifier, at most 64 characters.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "semver": {
+      "description": "Semantic Versioning 2.0.0. Quote the value in YAML so that it is read as a string.",
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "adapterStatus": {
+      "description": "future: reserved. planned: intended, directory may be absent. draft: guidance written but untested; the adapter directory and its README.md must exist (NR-5).",
+      "enum": ["future", "planned", "draft"]
+    },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "adapter"],
+      "properties": {
+        "status": { "$ref": "#/$defs/adapterStatus" },
+        "adapter": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "notes": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "patternProperties": { "^x_": {} },
+      "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+    },
+    "platformEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compatibility"],
+      "properties": {
+        "compatibility": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence": { "$ref": "#/$defs/nonEmptyString" },
+        "limitations": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "patternProperties": { "^x_": {} },
+      "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+    },
+    "skillRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["skill_id", "skill_version", "platforms"],
+      "properties": {
+        "skill_id": { "$ref": "#/$defs/skillId" },
+        "skill_version": { "$ref": "#/$defs/semver" },
+        "platforms": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/platformEvidence" },
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "not": { "$ref": "#/$defs/reservedKey" }
+          }
+        }
+      },
+      "patternProperties": { "^x_": {} },
+      "propertyNames": { "not": { "$ref": "#/$defs/reservedKey" } }
+    }
+  }
+}
