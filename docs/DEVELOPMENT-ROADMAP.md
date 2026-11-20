@@ -225,4 +225,35 @@ Two work packages have been carried out alongside the phases above. P0 (truthful
 
 Phases 4 and 5 remain open. P1 does not validate or release any skill.
 
+P2 (evidence and validation layer) is in progress. It pulls forward the evidence and release-gate part of Phase 5: an evidence and provenance model, documentation alignment, validator checks for the `validated` and `released` statuses, tests, and a one-off repository security scan. Delivered so far: the evidence model (`docs/EVIDENCE-MODEL.md`) and the requirements EV-1 and EV-2 (`docs/SKILL-STANDARD.md` §14), as documentation only. The validator checks and the security scan have not been delivered, and no security scan has been run.
+
+P2 does not include specialist skills, meta-skills, specialist migration, platform adapters, shared-learning infrastructure, a knowledge system, orchestration, routing, new core capabilities, a unified control center, proactive autonomous operations, or importing any source repository. Those remain later work. The evidence model leaves room for them (`docs/EVIDENCE-MODEL.md` §11) and does not implement them.
+
+### Future source-material research (not started)
+
+The repositories below are research sources to study and selectively adapt. They are not dependencies of this repository, none is required, and none has necessarily been inspected yet. Nothing from them has been imported. Groupings are provisional and are confirmed or changed when each source is actually inspected.
+
+| Theme | Sources |
+|---|---|
+| Agent frameworks and workflows | LangGraph, Mastra, GetStream Agents |
+| Real-time voice and video agents | Pipecat, LiveKit Agents |
+| Durable workflows and background jobs (future, deferred) | Trigger.dev, Temporal |
+| Memory | Mem0, Graphiti |
+| Safety and guardrails | NVIDIA NeMo Guardrails, Cloudflare Security Audit Skill |
+| Observability and model access | Langfuse, LiteLLM |
+| Sandboxed execution | E2B |
+| Notifications | Apprise |
+| Multimodal models | Qwen3-Omni |
+| Browser and computer-use agents (far future) | Browser Use, Stagehand, Agent S |
+| Skill formats and distribution | Vercel Skills, ClawHub |
+| To be characterized on inspection | OpenJarvis, OpenClaw, wa_meow |
+
+For each source, inspect it first and extract only what is genuinely useful: architecture patterns, skills, instructions, schemas, tests, scripts, workflows, integrations, safety, memory, orchestration, or observability mechanisms. Not every source belongs in this repository.
+
+When anything is adapted:
+
+* Check and preserve the source's license, attribution, and provenance. This repository's own license decision is separate and remains deferred until the rights to all included content are verified.
+* Record where each adapted element came from and what was changed.
+* Adapt selectively and keep the result platform-independent, identity-neutral, and covered by the evidence model.
+
 The roadmap is a living document. Update it when priorities, dependencies, or verified platform capabilities change.

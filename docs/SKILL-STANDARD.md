@@ -323,3 +323,28 @@ These rules were already stated before this section and are not new requirements
 | A compatibility record for another skill version does not claim compatibility | `registry/compatibility.yaml` rules; `docs/IMPORT-AND-VERIFICATION.md` §9 |
 | Compatibility levels come from `compatibility_levels` | `registry/compatibility.yaml` |
 | A claimed compatibility level other than `unverified` or `unsupported` has evidence | `registry/compatibility.yaml` rules; `docs/IMPORT-AND-VERIFICATION.md` §9 |
+
+## 14. Validation and Evidence Requirements
+
+### 14.1 Status of this section
+
+This section adds two requirements, EV-1 and EV-2, about the evidence behind the `validated` and `released` statuses. They follow the model in `docs/EVIDENCE-MODEL.md`. They do not change NR-1 to NR-8 or any rule in §13, and they do not change any existing record: `quality-guardian` is a `draft`, so neither requirement applies to it now.
+
+### 14.2 Requirements
+
+| ID | Requirement | Reason |
+|---|---|---|
+| EV-1 | A skill whose status is `validated` or `released` declares `validation.behavioral_scenario_evaluation: "recorded"` in `registry/skills.yaml`. That declaration rests on at least one evidence record of type `behavioral-scenario-evaluation` for the skill's exact version, whose verification status is `reviewed`. | `validated` means reviewed and tested (`docs/ARCHITECTURE.md` §6). The registry rule `require_validation_before_release` already requires the tests and results files. It does not say that anything was evaluated. |
+| EV-2 | A skill whose status is `released` declares `validation.repository_security_scan: "recorded"`. That declaration rests on an evidence record of type `repository-security-scan` that qualifies under `docs/EVIDENCE-MODEL.md` §9 and whose verification status is `reviewed`. | Release publishes a skill. The security exposure of a published skill is checked by a scan, which is a different kind of evidence from a behavioral evaluation. |
+
+**Scope of EV-2.** EV-2 applies to the `released` status only, and to the files of the skill being released. A scan that covers the whole repository can serve several skills if each skill's directory is unchanged between the commit scanned and the release commit (`docs/EVIDENCE-MODEL.md` §9). A scan of the working tree only does not qualify. A repository release (`ecosystem.version`) and any release artifact are not covered by this section.
+
+The registry field is named `repository_security_scan`. Its name is not changed, because the registry schema is not changed in this release. Its meaning for a skill is the scope above.
+
+### 14.3 What a passing structural check means
+
+The validator checks structure. A declared value and a declared file are evidence of nothing more than that they are declared. They do not show that an evaluation was performed, that it passed, or that anyone reviewed it (`docs/EVIDENCE-MODEL.md` §2). Setting `recorded` without a matching reviewed evidence record is not allowed, whether or not any tool notices.
+
+### 14.4 Enforcement status
+
+EV-1 and EV-2 are enforced by pull request review. The validator does not yet check them. A later change is planned to add validator checks for the declarations, and this section will be updated when they exist.
