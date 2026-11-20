@@ -219,7 +219,7 @@ This section writes down the portable skill format that the repository already u
 
 * **Layout.** A skill is `<type-directory>/<skill-id>/SKILL.md`. The type directories are `core/`, `meta-skills/`, and `specialist-skills/` (`docs/ARCHITECTURE.md` §5). `references/`, `assets/`, and `tests/` exist only when they contain real files.
 * **Frontmatter.** `SKILL.md` begins with a YAML frontmatter block holding the 14 fields of §4 (NR-1).
-* **Body.** The instruction structure in §5 remains a recommendation. The body of `SKILL.md` must not be empty.
+* **Body.** The instruction structure in §5 remains a recommendation. The body of `SKILL.md` should not be empty. This is not one of the requirements NR-1 to NR-8: a validator is expected to report an empty body as a diagnostic warning (KZ-F003), never as an error.
 * **Neutrality.** `SKILL.md` describes a capability, never an assistant. Platform-specific behavior belongs only in `adapters/<platform>/`.
 * **No adoption claims.** The format has no field that states a skill is installed or active, consistent with `docs/IMPORT-AND-VERIFICATION.md` §2.
 * **Extensions.** Any key that starts with `x_` is reserved for experiments and local use. Tools do not interpret it and do not reject it.
@@ -318,7 +318,7 @@ These rules were already stated before this section and are not new requirements
 | Registered paths and documentation files exist, with matching letter case | `registry_rules.require_skill_documentation`; `docs/ARCHITECTURE.md` §4.6 |
 | A skill marked `validated` or `released` has its tests and results files | `registry_rules.require_validation_before_release`; §9 and §11 |
 | A skill directory under a type directory is registered | `README.md`, Contributing and Change Discipline; roadmap Phase 3 |
-| A skill's `id`, `type`, `version`, and `status` agree between frontmatter and registry | `CHANGELOG.md` Versioning; §11 |
+| A skill's `id`, `type`, `version`, and `status` agree between frontmatter and registry | §4 (the fields every skill declares); §11 (version and registry information are updated); `docs/ARCHITECTURE.md` §4.6 (the registry tracks identifiers, versions, and status); `CHANGELOG.md` Versioning (version recorded in both places) |
 | Every registered skill has a compatibility record | `registry_rules.require_platform_compatibility_declarations` |
 | A compatibility record for another skill version does not claim compatibility | `registry/compatibility.yaml` rules; `docs/IMPORT-AND-VERIFICATION.md` §9 |
 | Compatibility levels come from `compatibility_levels` | `registry/compatibility.yaml` |
