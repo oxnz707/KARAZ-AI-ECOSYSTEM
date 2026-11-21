@@ -1,4 +1,4 @@
-"""Registry checks: KZ-R001 to KZ-R006, KZ-R008, KZ-R009 and KZ-F001.
+"""Registry checks: KZ-R001 to KZ-R006, KZ-R008, KZ-R009, KZ-F001, and the evidence gates KZ-G001 and KZ-G002.
 
 Each check is a function (ctx, report) listed in CHECKS with the inputs it needs.
 Checks tolerate malformed data: shape errors are reported by the schema checks.
@@ -172,6 +172,46 @@ def kz_r008(ctx: Context, report: Report) -> None:
                            "Add the file, or return the skill to an earlier status until evidence exists.")
 
 
+def _declared_state(entry: dict, key: str) -> str:
+    validation = entry.get("validation")
+    value = validation.get(key) if isinstance(validation, dict) else None
+    return value if isinstance(value, str) and value.strip() else "missing"
+
+
+def kz_g001(ctx: Context, report: Report) -> None:
+    """EV-1: a validated or released skill declares its behavioral scenario evaluation as recorded.
+
+    This checks the declaration only. It does not show that an evaluation was performed or reviewed.
+    """
+    for i, entry in registry_entries(ctx):
+        status = text_field(entry, "status")
+        if status not in ("validated", "released"):
+            continue
+        state = _declared_state(entry, "behavioral_scenario_evaluation")
+        if state != "recorded":
+            report.add("KZ-G001", ERROR, REGISTRY, _loc(i, "validation.behavioral_scenario_evaluation"),
+                       f"Skill is '{status}' but validation.behavioral_scenario_evaluation is '{state}', not 'recorded' (EV-1).",
+                       "Record a reviewed behavioral-scenario-evaluation evidence record (docs/EVIDENCE-MODEL.md) "
+                       "and then declare it, or return the skill to an earlier status.")
+
+
+def kz_g002(ctx: Context, report: Report) -> None:
+    """EV-2: a released skill declares its repository security scan as recorded.
+
+    This checks the declaration only. It does not check the scan's scope or that anyone reviewed it.
+    """
+    for i, entry in registry_entries(ctx):
+        status = text_field(entry, "status")
+        if status != "released":
+            continue
+        state = _declared_state(entry, "repository_security_scan")
+        if state != "recorded":
+            report.add("KZ-G002", ERROR, REGISTRY, _loc(i, "validation.repository_security_scan"),
+                       f"Skill is 'released' but validation.repository_security_scan is '{state}', not 'recorded' (EV-2).",
+                       "Record a reviewed, qualifying repository-security-scan evidence record (docs/EVIDENCE-MODEL.md §9) "
+                       "and then declare it, or keep the skill at 'validated'.")
+
+
 def kz_r009(ctx: Context, report: Report) -> None:
     for i, entry in registry_entries(ctx):
         skill_type, path = text_field(entry, "type"), text_field(entry, "path")
@@ -205,6 +245,8 @@ CHECKS = [
     ("KZ-R005", kz_r005, {"registry"}),
     ("KZ-R006", kz_r006, {"registry"}),
     ("KZ-R008", kz_r008, {"registry"}),
+    ("KZ-G001", kz_g001, {"registry"}),
+    ("KZ-G002", kz_g002, {"registry"}),
     ("KZ-R009", kz_r009, {"registry"}),
     ("KZ-F001", kz_f001, {"registry"}),
 ]

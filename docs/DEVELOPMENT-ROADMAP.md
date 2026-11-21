@@ -225,7 +225,7 @@ Two work packages have been carried out alongside the phases above. P0 (truthful
 
 Phases 4 and 5 remain open. P1 does not validate or release any skill.
 
-P2 (evidence and validation layer) is in progress. It pulls forward the evidence and release-gate part of Phase 5: an evidence and provenance model, documentation alignment, validator checks for the `validated` and `released` statuses, tests, and a one-off repository security scan. Delivered so far: the evidence model (`docs/EVIDENCE-MODEL.md`) and the requirements EV-1 and EV-2 (`docs/SKILL-STANDARD.md` §14), as documentation only. The validator checks and the security scan have not been delivered, and no security scan has been run.
+P2 (evidence and validation layer) is in progress. It pulls forward the evidence and release-gate part of Phase 5: an evidence and provenance model, documentation alignment, validator checks for the `validated` and `released` statuses, tests, and a one-off repository security scan. Delivered so far: the evidence model (`docs/EVIDENCE-MODEL.md`), the requirements EV-1 and EV-2 (`docs/SKILL-STANDARD.md` §14), and the validator checks KZ-G001 and KZ-G002 for the declarations (the validator now has 30 checks). The security scan has not been delivered, and no security scan has been run.
 
 P2 does not include specialist skills, meta-skills, specialist migration, platform adapters, shared-learning infrastructure, a knowledge system, orchestration, routing, new core capabilities, a unified control center, proactive autonomous operations, or importing any source repository. Those remain later work. The evidence model leaves room for them (`docs/EVIDENCE-MODEL.md` §11) and does not implement them.
 
