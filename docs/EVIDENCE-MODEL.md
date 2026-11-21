@@ -164,4 +164,4 @@ Each assistant keeps its own identity, personality, policies, tools, permissions
 
 * No evidence record in the format of §3 exists yet.
 * `registry/skills.yaml` records `behavioral_scenario_evaluation: "recorded"` for `quality-guardian` on the basis of the earlier evidence in §10, and `repository_security_scan: "not_run"`.
-* The validator checks that declared values are legal and that declared files exist. It does not read evidence records. Requirements for `validated` and `released` skills are in `docs/SKILL-STANDARD.md` §14.
+* The validator checks that declared values are legal and that declared files exist. For `validated` and `released` skills it also checks the declarations required by EV-1 and EV-2 (KZ-G001, KZ-G002). It does not read evidence records. Requirements for `validated` and `released` skills are in `docs/SKILL-STANDARD.md` §14.

@@ -347,4 +347,13 @@ The validator checks structure. A declared value and a declared file are evidenc
 
 ### 14.4 Enforcement status
 
-EV-1 and EV-2 are enforced by pull request review. The validator does not yet check them. A later change is planned to add validator checks for the declarations, and this section will be updated when they exist.
+The validator checks the declarations only, with two checks added after the 28 checks of §13.8:
+
+| Check | Level | Fires when | Requirement |
+|---|---|---|---|
+| `KZ-G001` | ERROR | Status is `validated` or `released` and `validation.behavioral_scenario_evaluation` is anything other than `"recorded"` (including missing) | EV-1 |
+| `KZ-G002` | ERROR | Status is `released` and `validation.repository_security_scan` is anything other than `"recorded"` (including missing) | EV-2 |
+
+* KZ-G001 formalizes the existing registry rule `require_validation_before_release`. KZ-G002 is new.
+* Neither check reads an evidence record, checks a scan's scope, or knows whether anyone reviewed the evidence. That part of EV-1 and EV-2 (a record that exists, qualifies, and is `reviewed`) is enforced by pull request review.
+* Neither check applies to `proposed`, `draft`, `deprecated`, or `retired`, so no existing record changes result. The validator now has 30 checks. The 28 checks of §13.8 and their levels are unchanged.

@@ -78,16 +78,26 @@ class Dependencies(TreeCase):  # KZ-R004, KZ-R005, KZ-R006
         for rel in ("tests/test-cases.md", "tests/test-results.md"):
             self.write(f"{SPEC}/{rel}", "Evidence placeholder for the structural test.\n")
         self.edit(REGISTRY, 'status: draft\n    path: "specialist', 'status: released\n    path: "specialist')
-        self.edit(REGISTRY, 'dependencies:\n      - example-core-skill\n    platform_compatibility: "registry/compatibility.yaml"\n    validation:\n',
+        self.edit(REGISTRY, 'dependencies:\n      - example-core-skill\n    platform_compatibility: "registry/compatibility.yaml"\n    validation:\n'
+                  '      behavioral_scenario_evaluation: "not_run"\n      repository_security_scan: "not_run"\n',
                   'dependencies:\n      - example-core-skill\n    platform_compatibility: "registry/compatibility.yaml"\n    validation:\n'
-                  f'      tests: "{SPEC}/tests/test-cases.md"\n      results: "{SPEC}/tests/test-results.md"\n')
+                  f'      tests: "{SPEC}/tests/test-cases.md"\n      results: "{SPEC}/tests/test-results.md"\n'
+                  '      behavioral_scenario_evaluation: "recorded"\n      repository_security_scan: "recorded"\n')
         self.edit(SPEC_MD, "status: draft", "status: released")
 
 
 class ValidationEvidence(TreeCase):  # KZ-R008
+    def declare_core_flags_recorded(self):
+        # Setup only: KZ-G001/KZ-G002 are tested in test_lifecycle_gate.py. These KZ-R008 tests keep their assertions.
+        self.edit(REGISTRY, '    dependencies: []\n    platform_compatibility: "registry/compatibility.yaml"\n    validation:\n'
+                  '      behavioral_scenario_evaluation: "not_run"\n      repository_security_scan: "not_run"\n',
+                  '    dependencies: []\n    platform_compatibility: "registry/compatibility.yaml"\n    validation:\n'
+                  '      behavioral_scenario_evaluation: "recorded"\n      repository_security_scan: "recorded"\n')
+
     def test_validated_without_declared_evidence(self):
         self.edit(REGISTRY, 'status: draft\n    path: "core', 'status: validated\n    path: "core')
         self.edit(CORE_MD, "status: draft", "status: validated")
+        self.declare_core_flags_recorded()
         report = self.check()
         self.assertPairs(report, {("KZ-R008", ERROR)})
         self.find(report, "KZ-R008", ERROR, file=REGISTRY, text="validation.tests")
@@ -103,6 +113,7 @@ class ValidationEvidence(TreeCase):  # KZ-R008
     def test_evidence_files_present_passes(self):
         self.edit(REGISTRY, 'status: draft\n    path: "core', 'status: validated\n    path: "core')
         self.edit(CORE_MD, "status: draft", "status: validated")
+        self.declare_core_flags_recorded()
         self.edit(REGISTRY, '    validation:\n', f'    validation:\n      tests: "{CORE}/tests/t.md"\n      results: "{CORE}/tests/r.md"\n')
         for name in ("t.md", "r.md"):
             self.write(f"{CORE}/tests/{name}", "Placeholder evidence file.\n")
